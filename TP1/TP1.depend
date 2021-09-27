@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1632489605 source:/home4/vv224843/Documents/L3/SI/TP1/src/cube.cpp
+	<GL/glut.h>
+	<cstdlib>
+
