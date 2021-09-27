@@ -1,7 +1,6 @@
-#include "Main.h"
+#include "main.h"
 #include <GL/glut.h>
 #include <cstdlib>
-#include "Isoedre.h"
 
 char presse;
 int anglex,angley,x,y,xold,yold;
@@ -56,8 +55,8 @@ void dessin(){
     for (i=0;i<20;i++){
         glBegin(GL_POLYGON);
             for (j=0;j<3;j++){
-                glColor3f(isoPoints[isoFaces[i][j]].r,isoPoints[isoFaces[i][j]].g,isoPoints[isoFaces[i][j]].b);
-                glVertex3f(isoPoints[isoFaces[i][j]].x,isoPoints[isoFaces[i][j]].y,isoPoints[isoFaces[i][j]].z);
+                glColor3f(pico[fico[i][j]].r,pico[fico[i][j]].g,pico[fico[i][j]].b);
+                glVertex3f(pico[fico[i][j]].x,pico[fico[i][j]].y,pico[fico[i][j]].z);
             }
         glEnd();
     }

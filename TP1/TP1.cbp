@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add library="GL" />
@@ -28,6 +29,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -37,11 +39,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="include/cube.h" />
-		<Unit filename="src/cube.cpp" />
-		<Extensions>
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Unit filename="include/Cube.h" />
+		<Unit filename="include/Isoedre.h" />
+		<Unit filename="include/Main.h" />
+		<Unit filename="include/Point.h" />
+		<Unit filename="src/Cube.cpp" />
+		<Unit filename="src/Isoedre.cpp" />
+		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/Point.cpp" />
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

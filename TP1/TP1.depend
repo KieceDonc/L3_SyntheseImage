@@ -3,3 +3,31 @@
 	<GL/glut.h>
 	<cstdlib>
 
+1632764709 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/src/Cube.cpp
+	"Cube.h"
+	"Point.h"
+
+1632764718 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/include/Cube.h
+	"Point.h"
+
+1632765443 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/include/Point.h
+
+1632764656 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/src/Point.cpp
+	"Point.h"
+
+1632765385 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/src/Isoedre.cpp
+	"Isoedre.h"
+	"Point.h"
+	"Cube.h"
+
+1632764735 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/include/Isoedre.h
+	"Point.h"
+
+1632765010 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/src/Main.cpp
+	"Main.h"
+	<GL/glut.h>
+	<cstdlib>
+	"Isoedre.h"
+
+1632761062 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/TP1/include/Main.h
+
