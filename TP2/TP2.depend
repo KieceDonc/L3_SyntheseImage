@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1633092457 source:/home4/vv224843/Documents/L3/SI/TP2/src/Main.cpp
+	"../include/Main.h"
+	<GL/glut.h>
+	<cstdlib>
+
+1633087404 /home4/vv224843/Documents/L3/SI/TP2/include/Main.h
+
