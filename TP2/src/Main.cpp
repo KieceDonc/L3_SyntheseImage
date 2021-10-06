@@ -5,10 +5,11 @@
 #include <cmath>
 
 char presse;
-int anglex,angley,x,y,xold,yold,armAngle1;
-float scale,armAngle1Rad;
+int anglex,angley,x,y,xold,yold,armAngle,firstAnimAngle;
+float scale,armAngleRad,firstAnimAngleRad;
 
 /* Prototype des fonctions */
+void anim();
 void affichage();
 void clavier(unsigned char touche,int x,int y);
 void reshape(int x,int y);
@@ -43,6 +44,7 @@ int main(int argc,char **argv){
     glEnable(GL_DEPTH_TEST);
 
     /* enregistrement des fonctions de rappel */
+    glutIdleFunc(anim);
     glutDisplayFunc(dessin);
     glutKeyboardFunc(clavier);
     glutReshapeFunc(reshape);
@@ -92,10 +94,19 @@ void dessin(){
     drawRotule0();
     drawArm0();
     drawRotule1();
-    drawArm1();
-    drawHand();
-    drawFinger0();
-    drawFinger1();
+    glPushMatrix();
+        glTranslatef(0,3.2f,0);
+        glRotatef(armAngle,0,0,-1);
+        glTranslatef(0,0.4f,0);
+
+        drawArm1();
+        glPushMatrix();
+            glRotatef(firstAnimAngleRad,0,1,0);
+            drawHand();
+            drawFinger0();
+            drawFinger1();
+        glPopMatrix();
+    glPopMatrix();
 
     //On echange les buffers
     glutSwapBuffers();
@@ -129,13 +140,13 @@ void clavier(unsigned char touche,int x,int y){
             glutPostRedisplay();
             break;
         case 'r':
-            armAngle1+=10;
-            armAngle1Rad = armAngle1*3.14159/180;
+            armAngle+=10;
+            armAngleRad = armAngle*3.14159/180;
             glutPostRedisplay();
             break;
         case 'R':
-            armAngle1-=10;
-            armAngle1Rad = armAngle1*3.14159/180;
+            armAngle-=10;
+            armAngleRad = armAngle*3.14159/180;
             glutPostRedisplay();
             break;
         case 'q' : /*la touche 'q' permet de quitter le programme */
@@ -179,6 +190,12 @@ void mousemotion(int x,int y){
     yold=y;
 }
 
+void anim(){
+    firstAnimAngle+=100;
+    firstAnimAngleRad = firstAnimAngle*3.14159/180;
+    glutPostRedisplay();
+}
+
 void drawBase(){
     glPushMatrix();
     glTranslatef(0.0f,0.25f,0.0f);
@@ -211,26 +228,17 @@ void drawRotule1(){
     glutSolidSphere(0.4,20,20);
     glPopMatrix();
 }
-
 void drawArm1(){
-    float coeff = 0.4f;
     glPushMatrix();
-    glTranslatef(sin(armAngle1Rad)*coeff,+cos(armAngle1Rad)*coeff-coeff,0.0f);
-    glTranslatef(0,0.2f,0);
-    glTranslatef(0,3.4f,0);
     glColor3f(0.0,1.0,1.0);
     glRotatef(90,-1,0,0);
-    glRotatef(armAngle1,0,1,0);
     glutSolidCylinder(0.2,1.5,20,20);
     glPopMatrix();
 }
 
 void drawHand(){
-    float coeff = 2.0f;
     glPushMatrix();
-    glTranslatef(sin(armAngle1Rad)*coeff,+cos(armAngle1Rad)*coeff-coeff,0.0f);
-    glTranslatef(0,5.2f,0);
-    glRotatef(armAngle1,0,0,-1);
+    glTranslatef(0,1.6f,0);
     glScalef(0.8f,0.2f,0.8f);
     glColor3f(0.5,0.8,0.7);
     glutSolidCube(1);
@@ -238,11 +246,8 @@ void drawHand(){
 }
 
 void drawFinger0(){
-    float coeff = 2.6f;
     glPushMatrix();
-    glTranslatef(sin(armAngle1Rad)*coeff,+cos(armAngle1Rad)*coeff-coeff,0.0f);
-    glTranslatef(0.3f,5.8f,0.0f);
-    glRotatef(armAngle1,0,0,-1);
+    glTranslatef(0.3f,2.2f,0.0f);
     glScalef(0.2f,1.0f,0.8f);
     glColor3f(0.7,1,0.4);
     glutSolidCube(1);
@@ -250,11 +255,8 @@ void drawFinger0(){
 }
 
 void drawFinger1(){
-    float coeff = 2.6f;
     glPushMatrix();
-    glTranslatef(sin(armAngle1Rad)*coeff,+cos(armAngle1Rad)*coeff-coeff,0.0f);
-    glTranslatef(-0.3f,5.8f,0.0f);
-    glRotatef(armAngle1,0,0,-1);
+    glTranslatef(-0.3f,2.2f,0.0f);
     glScalef(0.2f,1.0f,0.8f);
     glColor3f(0.7,1,0.4);
     glutSolidCube(1);
