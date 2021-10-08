@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1633679356 source:/home4/vv224843/Documents/L3/SI/TP3/src/jpegtex.cpp
+	<cstdio>
+	<cstdlib>
+	<GL/freeglut.h>
+	<jpeglib.h>
+	<jerror.h>
+	<iostream>
+
