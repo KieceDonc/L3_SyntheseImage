@@ -17,10 +17,12 @@
 char presse;
 const unsigned int largimg = 256;
 const unsigned int hautimg = 256;
-unsigned char image[largimg*hautimg*3];
+const unsigned int textureWidth = largimg*2;
+const unsigned int textureHeight = hautimg*2;
 int anglex=30,angley=20,x, y, xold, yold;
 
-unsigned char checkImage0[largimg*2][hautimg*2][3]; // damier static GLubyte checkImage0[largimg][hautimg][4];
+unsigned char texture[largimg][hautimg][3]; // damier static GLubyte checkImage0[largimg][hautimg][4];
+unsigned char texture2[largimg*2][hautimg*2][3];
 
 void affichage();
 void clavier(unsigned char touche,int x,int y);
@@ -53,8 +55,8 @@ int main(int argc,char **argv){
     /* Parametrage du placage de textures */
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,largimg,hautimg,0,
-           GL_RGB,GL_UNSIGNED_BYTE,image);
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,textureWidth,textureHeight,0,
+           GL_RGB,GL_UNSIGNED_BYTE,texture2);
     glEnable(GL_TEXTURE_2D);
 
     /* Mise en place des fonctions de rappel */
@@ -80,47 +82,58 @@ void affichage(){
     glRotatef(angley,1.0,0.0,0.0);
     glRotatef(anglex,0.0,1.0,0.0);
 
-    /*glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_REPEAT);*/
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0,0.0);   glVertex3f(-0.5, 0.5, 0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5, 0.5, 0.5);
+    glTexCoord2f(0.0,0.5);   glVertex3f(-0.5,-0.5, 0.5);
+    glTexCoord2f(0.5,0.5);   glVertex3f( 0.5,-0.5, 0.5);
+    glTexCoord2f(0.5,0.0);   glVertex3f( 0.5, 0.5, 0.5);
     glEnd();
 
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_REPEAT);
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0,0.0);   glVertex3f( 0.5, 0.5, 0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f( 0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5, 0.5,-0.5);
+    glTexCoord2f(0.0,1.0*3);   glVertex3f( 0.5,-0.5, 0.5);
+    glTexCoord2f(1.0*3,1.0*3);   glVertex3f( 0.5,-0.5,-0.5);
+    glTexCoord2f(1.0*3,0.0);   glVertex3f( 0.5, 0.5,-0.5);
     glEnd();
 
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0,0.0);   glVertex3f( 0.5, 0.5,-0.5);
     glTexCoord2f(0.0,1.0);   glVertex3f( 0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f(-0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f(-0.5, 0.5,-0.5);
+    glTexCoord2f(1.0*0.5,1.0);   glVertex3f(-0.5,-0.5,-0.5);
+    glTexCoord2f(1.0*0.5,0.0);   glVertex3f(-0.5, 0.5,-0.5);
     glEnd();
 
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_CLAMP);
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0,0.0);   glVertex3f(-0.5, 0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f(-0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f(-0.5, 0.5, 0.5);
+    glTexCoord2f(0.0,1.0*3);   glVertex3f(-0.5,-0.5,-0.5);
+    glTexCoord2f(1.0*3,1.0*3);   glVertex3f(-0.5,-0.5, 0.5);
+    glTexCoord2f(1.0*3,0.0);   glVertex3f(-0.5, 0.5, 0.5);
     glEnd();
 
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_CLAMP);
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0,0.0);   glVertex3f(-0.5, 0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5, 0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5, 0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5, 0.5,-0.5);
+    glTexCoord2f(0.0,1.0*3);   glVertex3f(-0.5, 0.5, 0.5);
+    glTexCoord2f(1.0*3,1.0*3);   glVertex3f( 0.5, 0.5, 0.5);
+    glTexCoord2f(1.0*3,0.0);   glVertex3f( 0.5, 0.5,-0.5);
     glEnd();
+
+
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T, GL_REPEAT);
     glBegin(GL_POLYGON);
     glTexCoord2f(0.0,0.0);   glVertex3f(-0.5,-0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5,-0.5,-0.5);
+    glTexCoord2f(0.0,1.0*3);   glVertex3f(-0.5,-0.5, 0.5);
+    glTexCoord2f(1.0*3,1.0*3);   glVertex3f( 0.5,-0.5, 0.5);
+    glTexCoord2f(1.0*3,0.0);   glVertex3f( 0.5,-0.5,-0.5);
     glEnd();
 
     glutSwapBuffers();
@@ -184,6 +197,8 @@ void loadJpegImage(char *fichier){
     struct jpeg_error_mgr jerr;
     FILE *file;
     unsigned char *ligne;
+    unsigned char image[largimg*hautimg*3];
+
 
     cinfo.err = jpeg_std_error(&jerr);
     jpeg_create_decompress(&cinfo);
@@ -220,12 +235,28 @@ void loadJpegImage(char *fichier){
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
 
+    for(int x=0;x<256;x++){
+        for(int y=0;y<256;y++){
+            texture[x][y][0]=image[x*256*3+y*3];
+            texture[x][y][1]=image[x*256*3+y*3+1];;
+            texture[x][y][2]=image[x*256*3+y*3+2];;
+        }
+    }
+
     for(int x=0;x<512;x++){
         for(int y=0;y<512;y++){
-            if((x<256 && y<256) || (x>=256 && y>=256)){
-                checkImage0[x][y][0]=image[i*256*3+j*3];
-                checkImage0[x][y][1]=image[i*256*3+j*3+1];;
-                checkImage0[x][y][2]=image[i*256*3+j*3+2];;
+            if((x<256 && y<256)){
+                texture2[x][y][0]=texture[x][y][0];
+                texture2[x][y][1]=texture[x][y][1];
+                texture2[x][y][2]=texture[x][y][2];
+            }else if(x>=256 && y>=256){
+                texture2[x][y][0]=texture[x-256][y-256][0];
+                texture2[x][y][1]=texture[x-256][y-256][1];
+                texture2[x][y][2]=texture[x-256][y-256][2];
+            }else{
+                texture2[x][y][0]=255;
+                texture2[x][y][1]=255;
+                texture2[x][y][2]=255;
             }
         }
     }
