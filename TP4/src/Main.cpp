@@ -8,6 +8,7 @@
 #include <GL/freeglut.h>
 #include <jpeglib.h>
 #include <jerror.h>
+#include <iostream>
 
 #include <cmath>
 
@@ -29,50 +30,54 @@ void loadJpegImage(char *fichier);
 
 
 void drawSphere(int NM, int NP, float r){
+    // NM = nombres méridien
+    // NP = nombres parallèles
     float coord[NP*NM][3]; // Tableau des coordonnées des sommets
-    float faces[NP*NM][4]; // Tableau des indices des points par faces np = 4  nm = 3
+    float faces[(NP-1)*NM][4]; // Tableau des indices des points par faces np = 4  nm = 3
 
     // Définition des coordonnées
     for(int j = 0 ; j < NP ; j++)
         for(int i = 0 ; i < NM ; i++){
-            float theta = (i*2.0*PI)/(NM*1.0);
+            float theta = (i*2.0*PI)/NM;
             float phi = (j*PI)/(NP-1.0)-(PI/2.0);
-            coord[i+j*NP][0] = r * std::cos(theta) * std::cos(phi) ;
-            coord[i+j*NP][1] = r * std::sin(theta) * std::cos(phi) ;
-            coord[i+j*NP][2] = r * std::sin(phi) ;
+            coord[i+j*NM][0] = r * std::cos(theta) * std::cos(phi) ;
+            coord[i+j*NM][1] = r * std::sin(theta) * std::cos(phi) ;
+            coord[i+j*NM][2] = r * std::sin(phi) ;
         }
 
+
     // Définition des faces
-    for(int j = 0 ; j < NP ; j++)
+    for(int j = 0 ; j < (NP-1) ; j++)
         for(int i = 0 ; i < NM ; i++){
-            faces[i+j*NP][0] = i + j * NM ;
-            faces[i+j*NP][1] = ((i+1) % NM ) + j * NM ;
-            faces[i+j*NP][2] = ((i+1) % NM ) + ( j + 1 ) * NM ;
-            faces[i+j*NP][3] = i + ( j + 1 ) * NM ;
+            faces[i+j*NM][0] = i + j * NM ;
+            faces[i+j*NM][1] = ((i+1) % NM ) + j * NM ;
+            faces[i+j*NM][2] = ((i+1) % NM ) + ( j + 1 ) * NM ;
+            faces[i+j*NM][3] = i + ( j + 1 ) * NM ;
         }
 
     // Tracé de la sphere
-    for(int j = 0 ; j < NP*NM ; j++){
+    for(int j = 0 ; j < (NP-1)*(NM) ; j++){
         int face1 = faces[j][0];
         int face2 = faces[j][1];
         int face3 = faces[j][2];
         int face4 = faces[j][3];
 
         glBegin(GL_POLYGON);
+        float x = j / ((NP-1)*NM*1.0);
+        float y = 1;
+        float z = 1;
+        glColor3f(x,y,z);
         glVertex3f(coord[face1][0], coord[face1][1], coord[face1][2]);
         glVertex3f(coord[face2][0], coord[face2][1], coord[face2][2]);
         glVertex3f(coord[face3][0], coord[face3][1], coord[face3][2]);
         glVertex3f(coord[face4][0], coord[face4][1], coord[face4][2]);
-
         glEnd();
     }
 
 }
 
 
-int main(int argc,char **argv)
-
-{
+int main(int argc,char **argv){
   /* Chargement de la texture */
   loadJpegImage("./texture.jpg");
 
@@ -94,11 +99,11 @@ int main(int argc,char **argv)
   glMatrixMode(GL_MODELVIEW);
 
   /* Parametrage du placage de textures */
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+  /*glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
   glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,256,256,0,
-	       GL_RGB,GL_UNSIGNED_BYTE,image);
-  glEnable(GL_TEXTURE_2D);
+	       GL_RGB,GL_UNSIGNED_BYTE,image);*/
+  //glEnable(GL_TEXTURE_2D);
 
   /* Mise en place des fonctions de rappel */
   glutDisplayFunc(affichage);
@@ -124,48 +129,7 @@ void affichage()
     glRotatef(angley,1.0,0.0,0.0);
     glRotatef(anglex,0.0,1.0,0.0);
 
-    drawSphere(50,50,0.5);
-
-    /*glBegin(GL_POLYGON);
-    glTexCoord2f(0.0,0.0);   glVertex3f(-0.5, 0.5, 0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5, 0.5, 0.5);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0,0.0);   glVertex3f( 0.5, 0.5, 0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f( 0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5, 0.5,-0.5);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0,0.0);   glVertex3f( 0.5, 0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f( 0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f(-0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f(-0.5, 0.5,-0.5);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0,0.0);   glVertex3f(-0.5, 0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5,-0.5,-0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f(-0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f(-0.5, 0.5, 0.5);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0,0.0);   glVertex3f(-0.5, 0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5, 0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5, 0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5, 0.5,-0.5);
-    glEnd();
-    glBegin(GL_POLYGON);
-    glTexCoord2f(0.0,0.0);   glVertex3f(-0.5,-0.5,-0.5);
-    glTexCoord2f(0.0,1.0);   glVertex3f(-0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,1.0);   glVertex3f( 0.5,-0.5, 0.5);
-    glTexCoord2f(1.0,0.0);   glVertex3f( 0.5,-0.5,-0.5);
-    glEnd();*/
+    drawSphere(6,5,0.5);
 
     glutSwapBuffers();
 
