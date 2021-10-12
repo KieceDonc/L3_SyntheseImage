@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1634045271 source:/home4/vv224843/Documents/L3/SI/TP4/src/Main.cpp
+	<cstdio>
+	<cstdlib>
+	<GL/freeglut.h>
+	<jpeglib.h>
+	<jerror.h>
+	<math.h>
+
+1634038776 /home4/vv224843/Documents/L3/SI/TP4/include/Main.h
+
