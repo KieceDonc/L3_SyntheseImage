@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1634485072 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Main.cpp
+	"../include/Main.h"
+
+1634476461 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Main.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<cstdlib>
+	<cmath>
+	<iostream>
+	"Head.h"
+	"Body.h"
+
+1634474767 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Head.cpp
+	"Head.h"
+
+1634477437 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Head.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	"Object.h"
+
+1634485201 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Body.cpp
+	"Body.h"
+
+1634477441 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Body.h
+	<cmath>
+	"Object.h"
+
+1634480318 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Object.h
+	<GL/glut.h>
+	<stdexcept>
+	<cmath>
+
+1634484441 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Object.cpp
+	"Object.h"
+
