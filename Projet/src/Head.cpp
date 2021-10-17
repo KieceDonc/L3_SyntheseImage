@@ -1,6 +1,6 @@
 #include "Head.h"
 
-Head::Head(float dimension, float translate[3], float rota[3]) : Object(translate,rota){
+Head::Head(float dimension, float translate[3], float rota[3], bool withTexture) : Object(translate,rota,withTexture){
     this->dimension = dimension;
     this->setColors(new float[3]{1.0f,1.0f,1.0f});
 }

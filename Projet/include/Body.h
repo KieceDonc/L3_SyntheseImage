@@ -3,18 +3,18 @@
 
 #include <cmath>
 #include "Object.h"
+#include "Texture.h"
 
 
 class Body : public Object {
     public:
-        Body(float rayon, float hauteur, int precision, float translate[], float rota[]);
+        Body(float rayon, float hauteur, int precision, float translate[], float rota[], bool withTexture);
 
         float getRayon();
         float getHauteur();
         int getPrecision();
 
         void draw();
-
 
     protected:
 

@@ -1,0 +1,93 @@
+# depslib dependency file v1.0
+1634490981 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Main.cpp
+	"../include/Main.h"
+
+1634476461 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Main.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<cstdlib>
+	<cmath>
+	<iostream>
+	"Head.h"
+	"Body.h"
+
+1634490461 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Head.cpp
+	"Head.h"
+
+1634490474 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Head.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	"Object.h"
+
+1634490972 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Body.cpp
+	"Body.h"
+
+1634490482 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Body.h
+	<cmath>
+	"Object.h"
+	"Texture.h"
+
+1634490624 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Object.h
+	<GL/glut.h>
+	<stdexcept>
+	<cmath>
+
+1634490643 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Object.cpp
+	"Object.h"
+
+1634490915 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/include/Texture.h
+	<stdexcept>
+	<jpeglib.h>
+	<jerror.h>
+	<GL/freeglut.h>
+
+1634491579 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/Projet/src/Texture.cpp
+	"Texture.h"
+	<iostream>
+
+1634494774 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Body.cpp
+	"Body.h"
+
+1634490482 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Body.h
+	<cmath>
+	"Object.h"
+	"Texture.h"
+
+1634490624 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Object.h
+	<GL/glut.h>
+	<stdexcept>
+	<cmath>
+
+1634494396 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Texture.h
+	<stdexcept>
+	<jpeglib.h>
+	<jerror.h>
+	<GL/freeglut.h>
+
+1634490461 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Head.cpp
+	"Head.h"
+
+1634490474 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Head.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	"Object.h"
+
+1634494652 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Main.cpp
+	"../include/Main.h"
+
+1634476461 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Main.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	<cstdlib>
+	<cmath>
+	<iostream>
+	"Head.h"
+	"Body.h"
+
+1634494752 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Object.cpp
+	"Object.h"
+
+1634494763 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Texture.cpp
+	"Texture.h"
+	<iostream>
+

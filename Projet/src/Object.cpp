@@ -1,7 +1,8 @@
 #include "Object.h"
 
-Object::Object(float translate[], float rota[]){
+Object::Object(float translate[], float rota[],bool withTexture){
     this->colorsHasBeenSet = false;
+    this->withTexture = withTexture;
 
     if(this->translate==nullptr){
         throw std::runtime_error("null pointer exception : translate is null. Did you forgot to set translation in constructor ?");
@@ -41,6 +42,9 @@ void Object::onDraw(){
     glRotatef(this->getRota(1),0.0f,1.0f,0.0f);
     glRotatef(this->getRota(2),0.0f,0.0f,1.0f);
     glColor3f(this->getColors(0),this->getColors(1),this->getColors(2));
+}
+bool Object::isWithTexture(){
+    return this->withTexture;
 }
 
 float Object::getTranslate(int index){

@@ -7,9 +7,10 @@
 
 class Object{
     public:
-        Object(float translate[], float rota[]);
+        Object(float translate[], float rota[],bool withTexture);
         ~Object();
 
+        bool isWithTexture();
         float getTranslate(int index);
         float getRota(int index);
         float getColors(int index);
@@ -21,6 +22,7 @@ class Object{
 
     private:
         bool colorsHasBeenSet;
+        bool withTexture;
         float * translate;
         float * rota;
         float * colors;

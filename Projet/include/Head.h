@@ -7,7 +7,7 @@
 
 class Head : public Object {
     public:
-        Head(float dimension, float translate[], float rota[]);
+        Head(float dimension, float translate[], float rota[],bool withTexture);
 
         float getDimension();
         void draw();
