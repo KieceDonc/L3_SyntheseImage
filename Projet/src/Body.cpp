@@ -24,9 +24,9 @@ void Body::draw(){
     glPushMatrix();
     this->onDraw();
 
-    glBegin(GL_POLYGON);
+    for (int t = 0; t <this->getPrecision(); t++) {
+        glBegin(GL_POLYGON);
 
-    for (int t = 1; t <= this->getPrecision(); t++) {
         float x0 = this->getRayon()*cos(2*this->getPi()*t/this->getPrecision());
         float z0 = this->getRayon()*sin(2*this->getPi()*t/this->getPrecision());
 
@@ -34,27 +34,49 @@ void Body::draw(){
         float x1 = this->getRayon()*cos(2*this->getPi()*(t+1)/this->getPrecision());
         float z1 = this->getRayon()*sin(2*this->getPi()*(t+1)/this->getPrecision());
 
+
+        float t0 = (float)t/this->getPrecision();
+        float t1 = (t+1.0f)/this->getPrecision();
+
         if(this->isWithTexture()){
-            glTexCoord2f(0.0,0.0);
+            glTexCoord2f(t0,0.0f);
         }
         glVertex3d(x0,0,z0);
 
         if(this->isWithTexture()){
-            glTexCoord2f(1.0,0.0);
+            glTexCoord2f(t0,1.0f);
         }
         glVertex3d(x0,this->getHauteur(),z0);
 
         if(this->isWithTexture()){
-            glTexCoord2f(1.0,t/this->getPrecision());
+            glTexCoord2f(t1,1.0f);
         }
         glVertex3d(x1,this->getHauteur(),z1);
 
         if(this->isWithTexture()){
-            glTexCoord2f(0.0,t/this->getPrecision());
+            glTexCoord2f(t1,0.0f);
         }
         glVertex3d(x1,0,z1);
+        glEnd();
+
+    }
+
+    glBegin(GL_POLYGON);
+    for (int t = 0; t <this->getPrecision(); t++) {
+        float x0 = this->getRayon()*cos(2*this->getPi()*t/this->getPrecision());
+        float z0 = this->getRayon()*sin(2*this->getPi()*t/this->getPrecision());
+        glVertex3d(x0,0,z0);
     }
     glEnd();
+
+    glBegin(GL_POLYGON);
+    for (int t = 0; t <this->getPrecision(); t++) {
+        float x0 = this->getRayon()*cos(2*this->getPi()*t/this->getPrecision());
+        float z0 = this->getRayon()*sin(2*this->getPi()*t/this->getPrecision());
+        glVertex3d(x0,this->getHauteur(),z0);
+    }
+    glEnd();
+
     glPopMatrix();
 
 

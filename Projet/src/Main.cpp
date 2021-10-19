@@ -28,12 +28,15 @@ int main(int argc,char **argv){
     glClearColor(0.0,0.0,0.0,0.0);
     glColor3f(1.0,1.0,1.0);
     glPointSize(2.0);
+    glShadeModel(GL_FLAT);
     glEnable(GL_DEPTH_TEST);
 
     /* Parametrage du placage de textures */
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    Texture headT = Texture("./headtest.jpg");
     glEnable(GL_TEXTURE_2D);
+
 
     /* enregistrement des fonctions de rappel */
     //glutIdleFunc(anim);
@@ -82,12 +85,9 @@ void dessin(){
 
     glFlush();
 
-    Texture headT = Texture("./head.jpg");
-    headT.enableTexture();
-
     Head head = Head(0.4f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},false);
     head.draw();
-    Body body = Body(0.8f,2.0f,40,new float[3]{head.getDimension(),0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},true);
+    Body body = Body(0.8f,2.0f,30,new float[3]{head.getDimension(),0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},true);
     body.draw();
 
     //On echange les buffers
