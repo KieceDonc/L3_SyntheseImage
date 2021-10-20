@@ -1,14 +1,13 @@
-#ifndef BODY_H
-#define BODY_H
+#ifndef PARAMETRICCYLINDER_H
+#define PARAMETRICCYLINDER_H
 
 #include <cmath>
 #include "Object.h"
 #include "Texture.h"
 
-
-class Body : public Object {
+class ParametricCylinder : public Object {
     public:
-        Body(float rayon, float hauteur, int precision, float translate[], float rota[], bool withTexture);
+        ParametricCylinder(float rayon, float hauteur, int precision, float translate[], float rota[], bool withTexture);
 
         float getRayon();
         float getHauteur();
@@ -24,4 +23,4 @@ class Body : public Object {
         int precision;
 };
 
-#endif // BODY_H
+#endif // PARAMETRICCYLINDER_H

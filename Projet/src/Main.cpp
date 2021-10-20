@@ -1,7 +1,9 @@
 #include "../include/Main.h"
 
+bool withAnim;
 char presse;
-int anglex,angley,x,y,xold,yold,zoom;
+float anglex,angley;
+int x,y,xold,yold,zoom;
 
 /* Prototype des fonctions */
 void anim();
@@ -15,7 +17,9 @@ void mousemotion(int x,int y);
 void dessin();
 
 int main(int argc,char **argv){
+    withAnim = false;
     zoom = 5;
+
     /* initialisation de glut et creation
      de la fenetre */
     glutInit(&argc,argv);
@@ -39,7 +43,9 @@ int main(int argc,char **argv){
 
 
     /* enregistrement des fonctions de rappel */
-    //glutIdleFunc(anim);
+    if(withAnim){
+        glutIdleFunc(anim);
+    }
     glutDisplayFunc(dessin);
     glutKeyboardFunc(clavier);
     glutSpecialFunc(clavierSpecial);
@@ -85,13 +91,19 @@ void dessin(){
 
     glFlush();
 
-    Head head = Head(0.4f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},false);
+    Cube head = Cube(1.0f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},false);
     head.draw();
-    Body body = Body(0.8f,2.0f,30,new float[3]{head.getDimension(),0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},true);
+    ParametricCylinder body = ParametricCylinder(0.5f,2.0f,30,new float[3]{head.getDimension(),0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},true);
     body.draw();
-
+    Box eyes = Box(2.0f,2.0f,2.0f,new float[3]{5.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},false);
+    eyes.draw();
     //On echange les buffers
     glutSwapBuffers();
+}
+
+void anim(){
+    anglex+=1.0f/50;
+    glutPostRedisplay();
 }
 
 void clavier(unsigned char touche,int x,int y){
@@ -195,9 +207,5 @@ void mousemotion(int x,int y){
 
     xold=x; /* sauvegarde des valeurs courante de le position de la souris */
     yold=y;
-}
-
-void anim(){
-    glutPostRedisplay();
 }
 

@@ -1,13 +1,13 @@
-#ifndef HEAD_H
-#define HEAD_H
+#ifndef Cube_H
+#define Cube_H
 
 #include <GL/glut.h>
 #include <GL/freeglut.h>
 #include "Object.h"
 
-class Head : public Object {
+class Cube : public Object {
     public:
-        Head(float dimension, float translate[], float rota[],bool withTexture);
+        Cube(float dimension, float translate[], float rota[],bool withTexture);
 
         float getDimension();
         void draw();
@@ -18,4 +18,4 @@ class Head : public Object {
         float dimension;
 };
 
-#endif // HEAD_H
+#endif // BOX_H

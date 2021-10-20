@@ -45,7 +45,7 @@
 	"Texture.h"
 	<iostream>
 
-1634654337 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Body.cpp
+1634726911 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Body.cpp
 	"Body.h"
 
 1634490482 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Body.h
@@ -64,7 +64,7 @@
 	<jerror.h>
 	<GL/freeglut.h>
 
-1634490461 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Head.cpp
+1634726674 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Head.cpp
 	"Head.h"
 
 1634490474 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Head.h
@@ -72,16 +72,17 @@
 	<GL/freeglut.h>
 	"Object.h"
 
-1634654351 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Main.cpp
+1634735621 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Main.cpp
 	"../include/Main.h"
 
-1634476461 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Main.h
+1634735565 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Main.h
 	<GL/glut.h>
 	<GL/freeglut.h>
 	<cstdlib>
 	<cmath>
 	<iostream>
 	"Head.h"
+	"Eyes.h"
 	"Body.h"
 
 1634494752 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Object.cpp
@@ -90,4 +91,32 @@
 1634651609 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Texture.cpp
 	"Texture.h"
 	<iostream>
+
+1634735550 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Eyes.cpp
+	"Eyes.h"
+
+1634735534 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Eyes.h
+	"Object.h"
+
+1634735904 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/ParametricCylinder.cpp
+	"ParametricCylinder.h"
+
+1634735932 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/ParametricCylinder.h
+	<cmath>
+	"Object.h"
+	"Texture.h"
+
+1634736057 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Cube.cpp
+	"Cube.h"
+
+1634736341 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Cube.h
+	<GL/glut.h>
+	<GL/freeglut.h>
+	"Object.h"
+
+1634736307 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Box.cpp
+	"Box.h"
+
+1634736330 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Box.h
+	"Object.h"
 

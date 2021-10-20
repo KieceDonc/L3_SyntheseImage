@@ -6,9 +6,9 @@
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
-#include "Head.h"
-#include "Body.h"
-
+#include "Cube.h"
+#include "Box.h"
+#include "ParametricCylinder.h"
 class Main{
     public:
         Main();

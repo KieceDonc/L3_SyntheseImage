@@ -39,15 +39,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="include/Body.h" />
+		<Unit filename="include/Eyes.h" />
 		<Unit filename="include/Head.h" />
 		<Unit filename="include/Main.h" />
 		<Unit filename="include/Object.h" />
+		<Unit filename="include/ParametricCylinder.h" />
 		<Unit filename="include/Texture.h" />
-		<Unit filename="src/Body.cpp" />
+		<Unit filename="src/Eyes.cpp" />
 		<Unit filename="src/Head.cpp" />
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/Object.cpp" />
+		<Unit filename="src/ParametricCylinder.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Extensions />
 	</Project>
