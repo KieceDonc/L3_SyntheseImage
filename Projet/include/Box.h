@@ -4,7 +4,7 @@
 #include "Object.h"
 class Box : public Object {
     public:
-        Box(float largeur, float longeur, float hauteur, float translate[], float rota[],bool withTexture);
+        Box(float largeur, float longeur, float hauteur, float translate[], float rota[], float colors[],bool withTexture);
 
         float getLargeur();
         float getLongeur();

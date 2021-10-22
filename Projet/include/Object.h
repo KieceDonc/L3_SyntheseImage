@@ -7,7 +7,7 @@
 
 class Object{
     public:
-        Object(float translate[], float rota[],bool withTexture);
+        Object(float translate[], float rota[], float colors[], bool withTexture);
         ~Object();
 
         bool isWithTexture();
@@ -15,13 +15,11 @@ class Object{
         float getRota(int index);
         float getColors(int index);
         float getPi();
-        void setColors(float colors[]);
 
     protected:
         void onDraw();
 
     private:
-        bool colorsHasBeenSet;
         bool withTexture;
         float * translate;
         float * rota;

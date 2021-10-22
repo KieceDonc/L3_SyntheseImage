@@ -1,10 +1,9 @@
 #include "Box.h"
 
-Box::Box(float largeur, float longeur, float hauteur, float translate[3], float rota[3], bool withTexture) : Object(translate,rota,withTexture){
+Box::Box(float largeur, float longeur, float hauteur, float translate[3], float rota[3],float colors[3], bool withTexture) : Object(translate,rota,colors,withTexture){
     this->largeur = largeur;
     this->longeur = longeur;
     this->hauteur = hauteur;
-    this->setColors(new float[3]{0.30f,0.30f,0.30f});
 }
 
 

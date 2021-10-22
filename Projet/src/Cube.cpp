@@ -1,8 +1,7 @@
 #include "Cube.h"
 
-Cube::Cube(float dimension, float translate[3], float rota[3], bool withTexture) : Object(translate,rota,withTexture){
+Cube::Cube(float dimension, float translate[3], float rota[3],float colors[3], bool withTexture) : Object(translate,rota,colors,withTexture){
     this->dimension = dimension;
-    this->setColors(new float[3]{0.30f,0.30f,0.30f});
 }
 
 float Cube::getDimension(){

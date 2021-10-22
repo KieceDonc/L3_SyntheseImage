@@ -91,12 +91,24 @@ void dessin(){
 
     glFlush();
 
-    Cube head = Cube(1.0f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},false);
+    Cube head = Cube(1.0f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f},false);
     head.draw();
-    ParametricCylinder body = ParametricCylinder(0.5f,2.0f,30,new float[3]{head.getDimension(),0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},true);
+
+    Box eyesL = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},false);
+    eyesL.draw();
+
+    Box eyesR = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},false);
+    eyesR.draw();
+
+    ParametricCylinder body = ParametricCylinder(0.5f,8.0f,30,new float[3]{head.getDimension()/2,0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},new float[3]{0.15f,0.15f,0.15f},false);
     body.draw();
-    Box eyes = Box(2.0f,2.0f,2.0f,new float[3]{5.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},false);
-    eyes.draw();
+
+    BezierWing wingL = BezierWing(3.0f,25,false,new float[3]{head.getDimension()/2,body.getRayon()/2-BezierWing::getHauteur(),0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f},false);
+    wingL.draw();
+
+    BezierWing wingR = BezierWing(3.0f,25,true,new float[3]{head.getDimension()/2,body.getRayon()/2-BezierWing::getHauteur(),0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f},false);
+    wingR.draw();
+
     //On echange les buffers
     glutSwapBuffers();
 }
@@ -139,7 +151,7 @@ void clavier(unsigned char touche,int x,int y){
             }
             glutPostRedisplay();
             break;
-        case'Z':
+        case 'Z':
             zoom+=1;
             glutPostRedisplay();
             break;

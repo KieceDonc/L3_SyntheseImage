@@ -7,7 +7,7 @@
 
 class ParametricCylinder : public Object {
     public:
-        ParametricCylinder(float rayon, float hauteur, int precision, float translate[], float rota[], bool withTexture);
+        ParametricCylinder(float rayon, float hauteur, int precision, float translate[], float rota[], float colors[], bool withTexture);
 
         float getRayon();
         float getHauteur();

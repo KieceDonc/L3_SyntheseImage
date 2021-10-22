@@ -1,10 +1,9 @@
 #include "ParametricCylinder.h"
 
-ParametricCylinder::ParametricCylinder(float rayon, float hauteur, int precision, float translate[3], float rota[3], bool withTexture) : Object(translate,rota,withTexture){
+ParametricCylinder::ParametricCylinder(float rayon, float hauteur, int precision, float translate[3], float rota[3], float colors[3], bool withTexture) : Object(translate,rota,colors,withTexture){
     this->rayon = rayon;
     this->hauteur = hauteur;
     this->precision = precision;
-    this->setColors(new float[3]{1.0f,1.0f,1.0f});
 }
 
 float ParametricCylinder::getRayon(){

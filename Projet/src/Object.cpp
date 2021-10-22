@@ -1,10 +1,9 @@
 #include "Object.h"
 
-Object::Object(float translate[], float rota[],bool withTexture){
-    this->colorsHasBeenSet = false;
+Object::Object(float translate[], float rota[], float colors[], bool withTexture){
     this->withTexture = withTexture;
 
-    if(this->translate==nullptr){
+    if(translate==nullptr){
         throw std::runtime_error("null pointer exception : translate is null. Did you forgot to set translation in constructor ?");
     }else if(std::isnan(translate[0])||std::isnan(translate[1])||std::isnan(translate[2])){
         throw std::runtime_error("translate contain a floating point number who's not a number");
@@ -18,22 +17,20 @@ Object::Object(float translate[], float rota[],bool withTexture){
         throw std::runtime_error("rota contain a floating point number who's not-a-number");
     }
     this->rota = rota;
+
+    if(colors==nullptr){
+        throw std::runtime_error("null pointer exception : colors is null. Did you forgot to set colors in constructor ?");
+    }else if(std::isnan(colors[0])||std::isnan(colors[1])||std::isnan(colors[2])){
+        throw std::runtime_error("colors contain a floating point number who's not-a-number");
+    }
+
+    this->colors = colors;
 }
 
 Object::~Object(){
     delete[] this->colors;
     delete[] this->translate;
     delete[] this->rota;
-}
-
-void Object::setColors(float colors[]){
-    if(colors==nullptr){
-        throw std::runtime_error("null pointer exception : colors is null");
-    }else if(std::isnan(colors[0])||std::isnan(colors[1])||std::isnan(colors[2])){
-        throw std::runtime_error("colors contain a floating point number who's not-a-number");
-    }
-    this->colorsHasBeenSet = true;
-    this->colors = colors;
 }
 
 void Object::onDraw(){
@@ -43,6 +40,7 @@ void Object::onDraw(){
     glRotatef(this->getRota(2),0.0f,0.0f,1.0f);
     glColor3f(this->getColors(0),this->getColors(1),this->getColors(2));
 }
+
 bool Object::isWithTexture(){
     return this->withTexture;
 }
@@ -64,8 +62,6 @@ float Object::getRota(int index){
 float Object::getColors(int index){
     if(index>2 || index<0){
         throw std::runtime_error("out of bound in getTranslate");
-    }else if(!this->colorsHasBeenSet){
-        throw std::runtime_error("colors hasn't been set. Did you forget to call setColors ?");
     }
     return this->colors[index];
 }

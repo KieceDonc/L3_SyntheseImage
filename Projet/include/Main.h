@@ -9,6 +9,8 @@
 #include "Cube.h"
 #include "Box.h"
 #include "ParametricCylinder.h"
+#include "BezierWing.h"
+
 class Main{
     public:
         Main();
