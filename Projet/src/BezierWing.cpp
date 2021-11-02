@@ -1,6 +1,6 @@
 #include "BezierWing.h"
 
-BezierWing::BezierWing(float scale, int precision, bool symmetricalCall, float translate[], float rota[], float colors[], bool withTexture) : Object(translate,rota,colors,withTexture){
+BezierWing::BezierWing(float scale, int precision, bool symmetricalCall, float translate[], float rota[], float colors[]) : Object(translate,rota,colors,false){
     this->scale = scale;
     this->precision = precision;
     this->symmetricalCall = symmetricalCall;

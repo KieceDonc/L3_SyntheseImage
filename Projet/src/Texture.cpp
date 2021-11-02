@@ -38,19 +38,18 @@ Texture::Texture(char* path){
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
 
-    unsigned char texture[this->getHeight()][this->getWidth()][3];
+    //unsigned char texture[this->getHeight()][this->getWidth()][3];
     for(int x=0;x<this->getWidth();x++){
         for(int y=0;y<this->getHeight();y++){
-            texture[x][y][0]=image[x*this->getWidth()*3+y*3];
-            texture[x][y][1]=image[x*this->getWidth()*3+y*3+1];;
-            texture[x][y][2]=image[x*this->getWidth()*3+y*3+2];;
+            this->texture[x][y][0]=image[x*this->getWidth()*3+y*3];
+            this->texture[x][y][1]=image[x*this->getWidth()*3+y*3+1];;
+            this->texture[x][y][2]=image[x*this->getWidth()*3+y*3+2];;
         }
     }
-
-    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,this->getWidth(),this->getHeight(),0, GL_RGB,GL_UNSIGNED_BYTE,texture);
 }
 
-Texture::~Texture(){
+void Texture::enableTexture(){
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,this->getWidth(),this->getHeight(),0, GL_RGB,GL_UNSIGNED_BYTE,this->texture);
 }
 
 int Texture::getHeight(){

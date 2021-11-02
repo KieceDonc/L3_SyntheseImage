@@ -1,8 +1,8 @@
 #include "../include/Main.h"
 
-bool withAnim;
+bool withAnim,tailReverse;
 char presse;
-float anglex,angley;
+float anglex,angley,tailAngle;
 int x,y,xold,yold,zoom;
 
 /* Prototype des fonctions */
@@ -16,8 +16,10 @@ void mouse(int bouton,int etat,int x,int y);
 void mousemotion(int x,int y);
 void dessin();
 
+Texture headT = Texture("./headtest.jpg");
+
 int main(int argc,char **argv){
-    withAnim = false;
+    withAnim = true;
     zoom = 5;
 
     /* initialisation de glut et creation
@@ -38,7 +40,6 @@ int main(int argc,char **argv){
     /* Parametrage du placage de textures */
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    Texture headT = Texture("./headtest.jpg");
     glEnable(GL_TEXTURE_2D);
 
 
@@ -91,30 +92,46 @@ void dessin(){
 
     glFlush();
 
-    Cube head = Cube(1.0f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f},false);
+    headT.enableTexture();
+
+    Cube head = Cube(1.0f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
     head.draw();
 
-    Box eyesL = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},false);
+    Box eyesL = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},true);
     eyesL.draw();
 
-    Box eyesR = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},false);
+    Box eyesR = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},true);
     eyesR.draw();
 
-    ParametricCylinder body = ParametricCylinder(0.5f,8.0f,30,new float[3]{head.getDimension()/2,0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},new float[3]{0.15f,0.15f,0.15f},false);
+    ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3]{head.getDimension()/2,0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},new float[3]{0.15f,0.15f,0.15f},false);
     body.draw();
 
-    BezierWing wingL = BezierWing(3.0f,25,false,new float[3]{head.getDimension()/2,body.getRayon()/2-BezierWing::getHauteur(),0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f},false);
+    BezierWing wingL = BezierWing(3.0f,25,false,new float[3]{head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
     wingL.draw();
 
-    BezierWing wingR = BezierWing(3.0f,25,true,new float[3]{head.getDimension()/2,body.getRayon()/2-BezierWing::getHauteur(),0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f},false);
+    BezierWing wingR = BezierWing(3.0f,25,true,new float[3]{head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
     wingR.draw();
+
+    Cone tail = Cone(1.5f,4.0f,new float[3]{head.getDimension()/2+body.getHauteur(),0.0f,0.0f},new float[3]{-90.0f,tailAngle+90,0.0f},new float[3]{0.30f,0.30f,0.30f});
+    tail.draw();
 
     //On echange les buffers
     glutSwapBuffers();
 }
 
 void anim(){
-    anglex+=1.0f/50;
+    //anglex+=1.0f/50;
+    if(tailReverse){
+            if(tailAngle>75){
+                tailReverse = false;
+            }
+            tailAngle+=1.0f/50;
+    }else{
+        if(tailAngle<-75){
+                tailReverse = true;
+            }
+        tailAngle-=1.0f/50;
+    }
     glutPostRedisplay();
 }
 

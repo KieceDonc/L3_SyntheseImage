@@ -41,6 +41,7 @@
 		</Compiler>
 		<Unit filename="include/BezierWing.h" />
 		<Unit filename="include/Box.h" />
+		<Unit filename="include/Cone.h" />
 		<Unit filename="include/Cube.h" />
 		<Unit filename="include/Main.h" />
 		<Unit filename="include/Object.h" />
@@ -48,6 +49,7 @@
 		<Unit filename="include/Texture.h" />
 		<Unit filename="src/BezierWing.cpp" />
 		<Unit filename="src/Box.cpp" />
+		<Unit filename="src/Cone.cpp" />
 		<Unit filename="src/Cube.cpp" />
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/Object.cpp" />

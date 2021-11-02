@@ -7,7 +7,7 @@
 
 class Cube : public Object {
     public:
-        Cube(float dimension, float translate[], float rota[], float colors[], bool withTexture);
+        Cube(float dimension, float translate[], float rota[], float colors[]);
 
         float getDimension();
         void draw();

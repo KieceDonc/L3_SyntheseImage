@@ -10,6 +10,7 @@
 #include "Box.h"
 #include "ParametricCylinder.h"
 #include "BezierWing.h"
+#include "Cone.h"
 
 class Main{
     public:

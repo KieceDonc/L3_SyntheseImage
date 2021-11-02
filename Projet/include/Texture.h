@@ -9,7 +9,6 @@
 class Texture{
     public:
         Texture(char* path);
-        virtual ~Texture();
 
         int width;
         int height;
@@ -17,9 +16,9 @@ class Texture{
         int getWidth();
         int getHeight();
         void enableTexture();
-    protected:
 
     private:
+        unsigned char texture[256][256][3];
 
 };
 

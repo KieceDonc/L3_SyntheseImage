@@ -6,7 +6,7 @@
 
 class BezierWing : public Object{
     public:
-        BezierWing(float dimension, int precision, bool symmetricalCall, float translate[], float rota[], float colors[], bool withTexture);
+        BezierWing(float dimension, int precision, bool symmetricalCall, float translate[], float rota[], float colors[]);
         virtual ~BezierWing();
 
         bool getSymmetricalCall();

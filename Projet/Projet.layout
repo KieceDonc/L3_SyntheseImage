@@ -2,9 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="src/Texture.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Cone.cpp" open="1" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1575" topLine="0" />
+			<Cursor1 position="504" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="include/Box.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="29" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include/Object.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,29 +17,49 @@
 			<Cursor1 position="121" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include/Texture.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/BezierWing.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="233" topLine="0" />
+			<Cursor1 position="247" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/BezierWing.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/Texture.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="289" topLine="0" />
+			<Cursor1 position="1453" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="include/Cube.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="216" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include/Main.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="224" topLine="0" />
+			<Cursor1 position="241" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/Box.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="src/ParametricCylinder.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="806" topLine="26" />
+		</Cursor>
+	</File>
+	<File name="src/BezierWing.cpp" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="183" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src/Object.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="173" topLine="0" />
+			<Cursor1 position="1350" topLine="15" />
 		</Cursor>
 	</File>
-	<File name="include/Box.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/Cone.h" open="1" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="180" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="include/ParametricCylinder.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -42,34 +67,19 @@
 			<Cursor1 position="291" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include/BezierWing.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/Texture.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="331" topLine="0" />
+			<Cursor1 position="356" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src/Main.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3250" topLine="90" />
-		</Cursor>
-	</File>
-	<File name="src/Box.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="149" topLine="0" />
+			<Cursor1 position="3615" topLine="90" />
 		</Cursor>
 	</File>
 	<File name="src/Cube.cpp" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="193" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="src/ParametricCylinder.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2363" topLine="44" />
-		</Cursor>
-	</File>
-	<File name="include/Cube.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="111" topLine="0" />
+			<Cursor1 position="134" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
