@@ -4,6 +4,7 @@ BezierWing::BezierWing(float scale, int precision, bool symmetricalCall, float t
     this->scale = scale;
     this->precision = precision;
     this->symmetricalCall = symmetricalCall;
+    this->draw();
 }
 
 BezierWing::~BezierWing()

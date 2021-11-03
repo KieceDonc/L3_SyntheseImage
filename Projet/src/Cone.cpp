@@ -3,6 +3,7 @@
 Cone::Cone(float base, float hauteur,float translate[3], float rota[3],float colors[3]) : Object(translate,rota,colors,false){
     this->base = base;
     this->hauteur = hauteur;
+    this->draw();
 }
 
 float Cone::getBase(){

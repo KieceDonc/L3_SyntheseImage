@@ -46,6 +46,7 @@
 		<Unit filename="include/Main.h" />
 		<Unit filename="include/Object.h" />
 		<Unit filename="include/ParametricCylinder.h" />
+		<Unit filename="include/Sphere.h" />
 		<Unit filename="include/Texture.h" />
 		<Unit filename="src/BezierWing.cpp" />
 		<Unit filename="src/Box.cpp" />
@@ -54,6 +55,7 @@
 		<Unit filename="src/Main.cpp" />
 		<Unit filename="src/Object.cpp" />
 		<Unit filename="src/ParametricCylinder.cpp" />
+		<Unit filename="src/Sphere.cpp" />
 		<Unit filename="src/Texture.cpp" />
 		<Extensions />
 	</Project>

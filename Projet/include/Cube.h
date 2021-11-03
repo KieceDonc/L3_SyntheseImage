@@ -10,12 +10,13 @@ class Cube : public Object {
         Cube(float dimension, float translate[], float rota[], float colors[]);
 
         float getDimension();
-        void draw();
 
     protected:
 
     private:
         float dimension;
+
+            void draw();
 };
 
 #endif // BOX_H

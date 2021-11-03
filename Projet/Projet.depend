@@ -72,10 +72,10 @@
 	<GL/freeglut.h>
 	"Object.h"
 
-1635877228 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Main.cpp
+1635963350 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Main.cpp
 	"../include/Main.h"
 
-1635873960 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Main.h
+1635960544 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Main.h
 	<GL/glut.h>
 	<GL/freeglut.h>
 	<cstdlib>
@@ -86,6 +86,7 @@
 	"ParametricCylinder.h"
 	"BezierWing.h"
 	"Cone.h"
+	"Sphere.h"
 
 1635876381 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Object.cpp
 	"Object.h"
@@ -100,38 +101,46 @@
 1634735534 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Eyes.h
 	"Object.h"
 
-1635874714 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/ParametricCylinder.cpp
+1635959576 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/ParametricCylinder.cpp
 	"ParametricCylinder.h"
 
-1634908954 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/ParametricCylinder.h
+1635960298 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/ParametricCylinder.h
 	<cmath>
 	"Object.h"
 	"Texture.h"
 
-1635875802 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Cube.cpp
+1635959562 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Cube.cpp
 	"Cube.h"
 
-1635875808 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Cube.h
+1635960321 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Cube.h
 	<GL/glut.h>
 	<GL/freeglut.h>
 	"Object.h"
 
-1634908829 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Box.cpp
+1635959551 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Box.cpp
 	"Box.h"
 
-1634908961 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Box.h
+1635960341 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Box.h
 	"Object.h"
 
-1635875879 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/BezierWing.cpp
+1635959544 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/BezierWing.cpp
 	"BezierWing.h"
 
-1635875886 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/BezierWing.h
+1635960350 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/BezierWing.h
 	"Object.h"
 	<cmath>
 
-1635875915 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Cone.cpp
+1635959558 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Cone.cpp
 	"Cone.h"
 
-1635875903 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Cone.h
+1635960331 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Cone.h
+	"Object.h"
+
+1635962386 source:/mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/src/Sphere.cpp
+	"Sphere.h"
+
+1635962393 /mnt/3822CDE622CDA8E8/Coding_workplace/L3_SyntheseImage/Projet/include/Sphere.h
+	<GL/glut.h>
+	<GL/freeglut.h>
 	"Object.h"
 

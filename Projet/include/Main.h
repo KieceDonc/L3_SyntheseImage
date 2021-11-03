@@ -11,6 +11,7 @@
 #include "ParametricCylinder.h"
 #include "BezierWing.h"
 #include "Cone.h"
+#include "Sphere.h"
 
 class Main{
     public:

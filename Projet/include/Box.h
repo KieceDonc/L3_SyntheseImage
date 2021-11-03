@@ -9,7 +9,6 @@ class Box : public Object {
         float getLargeur();
         float getLongeur();
         float getHauteur();
-        void draw();
 
     protected:
 
@@ -18,6 +17,7 @@ class Box : public Object {
         float longeur;
         float hauteur;
 
+        void draw();
         void drawOneSide(float coord0[3],float coord1[3],float coord2[3],float coord3[3]);
 };
 

@@ -8,13 +8,14 @@ class Cone : public Object {
 
         float getBase();
         float getHauteur();
-        void draw();
 
     protected:
 
     private:
         float base;
         float hauteur;
+
+        void draw();
 };
 
 #endif // CONE_H

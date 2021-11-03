@@ -12,7 +12,6 @@ class BezierWing : public Object{
         bool getSymmetricalCall();
         float getScale();
         int getPrecision();
-        void draw();
 
         static float getHauteur();
     protected:
@@ -21,6 +20,8 @@ class BezierWing : public Object{
         bool symmetricalCall;
         float scale;
         int precision;
+
+        void draw();
 };
 
 #endif // BEZIERWING_H

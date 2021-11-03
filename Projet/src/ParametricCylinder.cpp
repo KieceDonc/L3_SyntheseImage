@@ -4,6 +4,7 @@ ParametricCylinder::ParametricCylinder(float rayon, float hauteur, int precision
     this->rayon = rayon;
     this->hauteur = hauteur;
     this->precision = precision;
+    this->draw();
 }
 
 float ParametricCylinder::getRayon(){

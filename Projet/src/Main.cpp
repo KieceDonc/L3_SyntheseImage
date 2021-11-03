@@ -2,8 +2,10 @@
 
 bool withAnim,tailReverse;
 char presse;
-float anglex,angley,tailAngle;
+float anglex,angley,tailAngleX,tailAngleY;
 int x,y,xold,yold,zoom;
+
+float PI = 3.141592653589793;
 
 /* Prototype des fonctions */
 void anim();
@@ -17,10 +19,11 @@ void mousemotion(int x,int y);
 void dessin();
 
 Texture headT = Texture("./headtest.jpg");
+Texture bodyT = Texture("./texturebody.jpg");
 
 int main(int argc,char **argv){
-    withAnim = true;
-    zoom = 5;
+    withAnim = false;
+    zoom = 10;
 
     /* initialisation de glut et creation
      de la fenetre */
@@ -95,43 +98,40 @@ void dessin(){
     headT.enableTexture();
 
     Cube head = Cube(1.0f,new float[3]{0.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
-    head.draw();
 
     Box eyesL = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},true);
-    eyesL.draw();
 
     Box eyesR = Box(0.2f,0.2f,0.4f,new float[3]{-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.5f,0.0f,0.30f},true);
-    eyesR.draw();
 
-    ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3]{head.getDimension()/2,0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},new float[3]{0.15f,0.15f,0.15f},false);
-    body.draw();
+    //bodyT.enableTexture();
 
-    BezierWing wingL = BezierWing(3.0f,25,false,new float[3]{head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
-    wingL.draw();
+    ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3]{head.getDimension()/2,0.0f,0.0f},new float[3]{0.0f,0.0f,-90.0f},new float[3]{0.15f,0.15f,0.15f},true);
 
-    BezierWing wingR = BezierWing(3.0f,25,true,new float[3]{head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
-    wingR.draw();
+    BezierWing wingR = BezierWing(3.0f,25,false,new float[3]{head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
+    BezierWing wingL = BezierWing(3.0f,25,true,new float[3]{head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
+    BezierWing backwingR = BezierWing(5.0f,25,false,new float[3]{head.getDimension()/2+body.getHauteur()*0.5f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
+    BezierWing backwingL = BezierWing(5.0f,25,true,new float[3]{head.getDimension()/2+body.getHauteur()*0.5f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3]{0.0f,0.0f,0.0f},new float[3]{0.30f,0.30f,0.30f});
 
-    Cone tail = Cone(1.5f,4.0f,new float[3]{head.getDimension()/2+body.getHauteur(),0.0f,0.0f},new float[3]{-90.0f,tailAngle+90,0.0f},new float[3]{0.30f,0.30f,0.30f});
-    tail.draw();
+
+    ParametricCylinder frontLegL = ParametricCylinder(0.45f,2.0f,30,new float[3]{head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3]{-90.0f-75.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,1.0f},false);
+    ParametricCylinder frontLegR = ParametricCylinder(0.45f,2.0f,30,new float[3]{head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),cos(PI/4)*body.getRayon()},new float[3]{90.0f+75.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,1.0f},false);
+    ParametricCylinder backLegL = ParametricCylinder(0.45f,2.0f,30,new float[3]{head.getDimension()/2+body.getHauteur()*0.75,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3]{-90.0f-75.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,1.0f},false);
+    ParametricCylinder backLegR = ParametricCylinder(0.45f,2.0f,30,new float[3]{head.getDimension()/2+body.getHauteur()*0.75,-sin(PI/4)*body.getRayon(),cos(PI/4)*body.getRayon()},new float[3]{90.0f+75.0f,0.0f,0.0f},new float[3]{0.0f,0.0f,1.0f},false);
+
+    float feetRayon = 0.65f;
+    Sphere frontfeetR = Sphere(feetRayon,new float[3]{frontLegR.getTranslate(0),frontLegR.getTranslate(1)-frontLegR.getHauteur(),frontLegR.getTranslate(2)+feetRayon/1.5},new float[3]{1.0f,0.0f,0.0f});
+    Sphere frontfeetL = Sphere(feetRayon,new float[3]{frontLegL.getTranslate(0),frontLegL.getTranslate(1)-frontLegL.getHauteur(),frontLegL.getTranslate(2)-feetRayon/1.5},new float[3]{1.0f,0.0f,0.0f});
+    Sphere backfeetR = Sphere(feetRayon,new float[3]{backLegR.getTranslate(0),backLegR.getTranslate(1)-backLegR.getHauteur(),backLegR.getTranslate(2)+feetRayon/1.5},new float[3]{1.0f,0.0f,0.0f});
+    Sphere backfeetL = Sphere(feetRayon,new float[3]{backLegL.getTranslate(0),backLegL.getTranslate(1)-backLegL.getHauteur(),backLegL.getTranslate(2)-feetRayon/1.5},new float[3]{1.0f,0.0f,0.0f});
+
+    Cone tail = Cone(1.0f,4.0f,new float[3]{head.getDimension()/2+body.getHauteur(),0.0f,0.0f},new float[3]{-90.0f+tailAngleX,tailAngleY+90,0.0f},new float[3]{0.30f,0.30f,0.30f});
 
     //On echange les buffers
     glutSwapBuffers();
 }
 
 void anim(){
-    //anglex+=1.0f/50;
-    if(tailReverse){
-            if(tailAngle>75){
-                tailReverse = false;
-            }
-            tailAngle+=1.0f/50;
-    }else{
-        if(tailAngle<-75){
-                tailReverse = true;
-            }
-        tailAngle-=1.0f/50;
-    }
+    anglex+=1.0f/50;
     glutPostRedisplay();
 }
 
@@ -170,6 +170,30 @@ void clavier(unsigned char touche,int x,int y){
             break;
         case 'Z':
             zoom+=1;
+            glutPostRedisplay();
+            break;
+        case 'h':
+            if(tailAngleY>-50){
+                tailAngleY-=5.0f;
+            }
+            glutPostRedisplay();
+            break;
+        case 'n':
+            if(tailAngleY<50){
+                tailAngleY+=5.0f;
+            }
+            glutPostRedisplay();
+            break;
+        case 'g':
+            if(tailAngleX<100){
+                tailAngleX+=10.0f;
+            }
+            glutPostRedisplay();
+            break;
+        case 'j':
+            if(tailAngleX>-100){
+                tailAngleX-=10.0f;
+            }
             glutPostRedisplay();
             break;
         case 'q' : /*la touche 'q' permet de quitter le programme */

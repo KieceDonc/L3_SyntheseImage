@@ -13,14 +13,14 @@ class ParametricCylinder : public Object {
         float getHauteur();
         int getPrecision();
 
-        void draw();
-
     protected:
 
     private:
         float rayon;
         float hauteur;
         int precision;
+
+        void draw();
 };
 
 #endif // PARAMETRICCYLINDER_H

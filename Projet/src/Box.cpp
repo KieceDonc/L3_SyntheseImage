@@ -4,6 +4,7 @@ Box::Box(float largeur, float longeur, float hauteur, float translate[3], float 
     this->largeur = largeur;
     this->longeur = longeur;
     this->hauteur = hauteur;
+    this->draw();
 }
 
 
