@@ -1,0 +1,6 @@
+Projet/doxygen/html/
+Projet/doxygen/latex/
+*.layout
+*.depend
+*/bin/Debug/
+*/obj/Debug/

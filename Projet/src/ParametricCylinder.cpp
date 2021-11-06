@@ -159,6 +159,7 @@ void ParametricCylinder::draw(){
 
     }
 
+    // drawing the lower part to close the cylinder
     glBegin(GL_POLYGON);
     for (int t = 0; t <this->getPrecision(); t++) {
         float x0 = this->getRayon()*cos(2*this->getPi()*t/this->getPrecision());
@@ -167,6 +168,7 @@ void ParametricCylinder::draw(){
     }
     glEnd();
 
+    // drawing the upper part to close the cylinder
     glBegin(GL_POLYGON);
     for (int t = 0; t <this->getPrecision(); t++) {
         float x0 = this->getRayon()*cos(2*this->getPi()*t/this->getPrecision());
