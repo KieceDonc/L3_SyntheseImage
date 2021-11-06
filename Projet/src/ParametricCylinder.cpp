@@ -1,5 +1,39 @@
 #include "ParametricCylinder.h"
 
+/**
+ * @brief Construct a new Parametric Cylinder:: Parametric Cylinder object
+ *
+ * @param rayon
+ * @param hauteur
+ *
+ *               rayon
+ *           <---------->
+ *    ^          888888888888888
+ *    |       8888             8888
+ *    |      8                     8
+ *    |      88888             88888
+ *    |      8   888888888888888   8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8   888888888888888   8
+ *    |      8888               8888
+ *    |      8                     8
+ *    |       8888             8888
+ *    |          888888888888888
+ *  hauteur
+ *
+ * @param precision. Because we use parametric equation it describe the numbers of faces we will have. Use 30 if you want to have the illusion of a cylinder
+ * @param translate is an array of 3 float which contains x,y,z translations
+ * @param rota is an array of 3 float which contains x,y,z rotationss
+ * @param colors is an array of 3 float which contains red,green,blue values of colors
+ * @param withTexture true = apply current texture, false = don't apply texture
+ */
 ParametricCylinder::ParametricCylinder(float rayon, float hauteur, int precision, float translate[3], float rota[3], float colors[3], bool withTexture) : Object(translate,rota,colors,withTexture){
     this->rayon = rayon;
     this->hauteur = hauteur;
@@ -7,18 +41,82 @@ ParametricCylinder::ParametricCylinder(float rayon, float hauteur, int precision
     this->draw();
 }
 
+/**
+ * @brief return rayon
+ *
+ *               rayon
+ *           <---------->
+ *    ^          888888888888888
+ *    |       8888             8888
+ *    |      8                     8
+ *    |      88888             88888
+ *    |      8   888888888888888   8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8   888888888888888   8
+ *    |      8888               8888
+ *    |      8                     8
+ *    |       8888             8888
+ *    |          888888888888888
+ *  hauteur
+ *
+ * @return float
+ */
+
 float ParametricCylinder::getRayon(){
     return this->rayon;
 }
 
+/**
+ * @brief return hauteur
+ *
+ *               rayon
+ *           <---------->
+ *    ^          888888888888888
+ *    |       8888             8888
+ *    |      8                     8
+ *    |      88888             88888
+ *    |      8   888888888888888   8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8                     8
+ *    |      8   888888888888888   8
+ *    |      8888               8888
+ *    |      8                     8
+ *    |       8888             8888
+ *    |          888888888888888
+ *  hauteur
+ *
+ * @return float
+ */
 float ParametricCylinder::getHauteur(){
     return this->hauteur;
 }
 
+/**
+ * @brief
+ *
+ * @return int
+ */
 int ParametricCylinder::getPrecision(){
     return this->precision;
 }
 
+/**
+ * @brief
+ *
+ */
 void ParametricCylinder::draw(){
 
     glPushMatrix();

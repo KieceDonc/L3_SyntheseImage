@@ -1,6 +1,11 @@
 #include "Texture.h"
 #include <iostream>
 
+/**
+ * @brief Construct a new Texture:: Texture object. It will load and store texture but not use them. Call enableTexture() to use it
+ *
+ * @param path to jpg texture
+ */
 Texture::Texture(char* path){
     struct jpeg_decompress_struct cinfo;
     struct jpeg_error_mgr jerr;
@@ -38,7 +43,6 @@ Texture::Texture(char* path){
     jpeg_finish_decompress(&cinfo);
     jpeg_destroy_decompress(&cinfo);
 
-    //unsigned char texture[this->getHeight()][this->getWidth()][3];
     for(int x=0;x<this->getWidth();x++){
         for(int y=0;y<this->getHeight();y++){
             this->texture[x][y][0]=image[x*this->getWidth()*3+y*3];
@@ -48,14 +52,28 @@ Texture::Texture(char* path){
     }
 }
 
+/**
+ * @brief use to set the current texture in general to this stored texture
+ *
+ */
 void Texture::enableTexture(){
     glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,this->getWidth(),this->getHeight(),0, GL_RGB,GL_UNSIGNED_BYTE,this->texture);
 }
 
+/**
+ * @brief return height of loaded texture
+ *
+ * @return int
+ */
 int Texture::getHeight(){
     return this->height;
 }
 
+/**
+ * @brief return width of loaded texture
+ *
+ * @return int
+ */
 int Texture::getWidth(){
     return this->width;
 }

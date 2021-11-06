@@ -1,5 +1,27 @@
 #include "Box.h"
 
+/**
+ * @brief Construct a new Box:: Box object
+ *
+ * @param largeur
+ * @param longeur
+ * @param hauteur
+ *
+ *     +--------+             Hauteur
+ *    /        /|               |
+ *   /        / |               |
+ *  +--------+  |               | Longeur
+ *  |        |  |               |    /
+ *  |        |  +               |   /
+ *  |        | /                |  /
+ *  |        |/                 | /
+ *  +--------+                  |/_____________ largeur
+ *
+ * @param translate is an array of 3 float which contains x,y,z translations
+ * @param rota is an array of 3 float which contains x,y,z rotations
+ * @param colors is an array of 3 float which contains red,green,blue values of colors
+ * @param withTexture true = apply current texture, false = don't apply texture
+ */
 Box::Box(float largeur, float longeur, float hauteur, float translate[3], float rota[3],float colors[3], bool withTexture) : Object(translate,rota,colors,withTexture){
     this->largeur = largeur;
     this->longeur = longeur;
@@ -7,19 +29,67 @@ Box::Box(float largeur, float longeur, float hauteur, float translate[3], float 
     this->draw();
 }
 
-
+/**
+ * @brief return largeur
+ *
+ *     +--------+             Hauteur
+ *    /        /|               |
+ *   /        / |               |
+ *  +--------+  |               | Longeur
+ *  |        |  |               |    /
+ *  |        |  +               |   /
+ *  |        | /                |  /
+ *  |        |/                 | /
+ *  +--------+                  |/_____________ largeur
+ *
+ * @return float
+ */
 float Box::getLargeur(){
     return this->largeur;
 }
 
+/**
+ * @brief return longeur
+ *
+ *     +--------+             Hauteur
+ *    /        /|               |
+ *   /        / |               |
+ *  +--------+  |               | Longeur
+ *  |        |  |               |    /
+ *  |        |  +               |   /
+ *  |        | /                |  /
+ *  |        |/                 | /
+ *  +--------+                  |/_____________ largeur
+ *
+ * @return float
+ */
 float Box::getLongeur(){
     return this->longeur;
 }
 
+/**
+ * @brief return Hauteur
+ *
+ *     +--------+             Hauteur
+ *    /        /|               |
+ *   /        / |               |
+ *  +--------+  |               | Longeur
+ *  |        |  |               |    /
+ *  |        |  +               |   /
+ *  |        | /                |  /
+ *  |        |/                 | /
+ *  +--------+                  |/_____________ largeur
+ *
+ * @return float
+ */
 float Box::getHauteur(){
     return this->hauteur;
 }
 
+/**
+ * @brief
+ *
+ */
 void Box::draw(){
     glPushMatrix();
     this->onDraw(); // on draw must be call before drawing. ( contains translation / rotation / colors ... )
@@ -27,42 +97,43 @@ void Box::draw(){
     float halfLargeur = this->largeur/2;
     float halfLongeur = this->longeur/2;
     float halfHauteur = this->hauteur/2;
-    this->drawOneSide(
+
+    this->drawSquare(
         new float[3]{-1*halfLargeur,halfLongeur,halfHauteur},
         new float[3]{-1*halfLargeur,-1*halfLongeur,halfHauteur},
         new float[3]{halfLargeur,-1*halfLongeur,halfHauteur},
         new float[3]{halfLargeur,halfLongeur,halfHauteur}
     );
 
-    this->drawOneSide(
+    this->drawSquare(
         new float[3]{halfLargeur,halfLongeur,halfHauteur},
         new float[3]{halfLargeur,-1*halfLongeur,halfHauteur},
         new float[3]{halfLargeur,-1*halfLongeur,-1*halfHauteur},
         new float[3]{halfLargeur,halfLongeur,-1*halfHauteur}
     );
 
-    this->drawOneSide(
+    this->drawSquare(
         new float[3]{halfLargeur,halfLongeur,-1*halfHauteur},
         new float[3]{halfLargeur,-1*halfLongeur,-1*halfHauteur},
         new float[3]{-1*halfLargeur,-1*halfLongeur,-1*halfHauteur},
         new float[3]{-1*halfLargeur,halfLongeur,-1*halfHauteur}
     );
 
-    this->drawOneSide(
+    this->drawSquare(
         new float[3]{-1*halfLargeur,halfLongeur,-1*halfHauteur},
         new float[3]{-1*halfLargeur,-1*halfLongeur,-1*halfHauteur},
         new float[3]{-1*halfLargeur,-1*halfLongeur,halfHauteur},
         new float[3]{-1*halfLargeur,halfLongeur,halfHauteur}
     );
 
-    this->drawOneSide(
+    this->drawSquare(
         new float[3]{-1*halfLargeur,halfLongeur,-1*halfHauteur},
         new float[3]{-1*halfLargeur,halfLongeur,halfHauteur},
         new float[3]{halfLargeur,halfLongeur,halfHauteur},
         new float[3]{halfLargeur,halfLongeur,-1*halfHauteur}
     );
 
-    this->drawOneSide(
+    this->drawSquare(
         new float[3]{-1*halfLargeur,-1*halfLongeur,-1*halfHauteur},
         new float[3]{-1*halfLargeur,-1*halfLongeur,halfHauteur},
         new float[3]{halfLargeur,-1*halfLongeur,halfHauteur},
@@ -72,7 +143,24 @@ void Box::draw(){
     glPopMatrix();
 }
 
-void Box::drawOneSide(float coord0[3],float coord1[3],float coord2[3],float coord3[3]){
+/**
+ * @brief use to draw one side of cube ( a square )
+ *
+ * @param coord0
+ * @param coord1
+ * @param coord2
+ * @param coord3
+ *
+ *  coord1   coord2
+ *    +--------+
+ *    |        |
+ *    |        |
+ *    |        |
+ *    |        |
+ *    +--------+
+ *  coord0   coord3
+ */
+void Box::drawSquare(float coord0[3],float coord1[3],float coord2[3],float coord3[3]){
     glBegin(GL_POLYGON);
         if(this->isWithTexture()){
             glTexCoord2f(0.0f,0.0f);

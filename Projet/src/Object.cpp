@@ -1,5 +1,13 @@
 #include "Object.h"
 
+/**
+ * @brief Construct a new Object:: Object object
+ *
+ * @param translate is an array of 3 float which contains x,y,z translations
+ * @param rota is an array of 3 float which contains x,y,z rotations
+ * @param colors is an array of 3 float which contains red,green,blue values of colors
+ * @param withTexture true = apply current texture, false = don't apply texture
+ */
 Object::Object(float translate[], float rota[], float colors[], bool withTexture){
     this->withTexture = withTexture;
 
@@ -27,12 +35,20 @@ Object::Object(float translate[], float rota[], float colors[], bool withTexture
     this->colors = colors;
 }
 
+/**
+ * @brief Destroy the Object:: Object object
+ *
+ */
 Object::~Object(){
     delete[] this->colors;
     delete[] this->translate;
     delete[] this->rota;
 }
 
+/**
+ * @brief
+ *
+ */
 void Object::onDraw(){
     glTranslatef(this->getTranslate(0),this->getTranslate(1),this->getTranslate(2));
     glRotatef(this->getRota(0),1.0f,0.0f,0.0f);
@@ -41,10 +57,22 @@ void Object::onDraw(){
     glColor3f(this->getColors(0),this->getColors(1),this->getColors(2));
 }
 
+/**
+ * @brief
+ *
+ * @return true
+ * @return false
+ */
 bool Object::isWithTexture(){
     return this->withTexture;
 }
 
+/**
+ * @brief
+ *
+ * @param index
+ * @return float
+ */
 float Object::getTranslate(int index){
     if(index>2 || index<0){
         throw std::runtime_error("out of bound in getTranslate");
@@ -52,6 +80,12 @@ float Object::getTranslate(int index){
     return this->translate[index];
 }
 
+/**
+ * @brief
+ *
+ * @param index
+ * @return float
+ */
 float Object::getRota(int index){
     if(index>2 || index<0){
         throw std::runtime_error("out of bound in getTranslate");
@@ -59,6 +93,12 @@ float Object::getRota(int index){
     return this->rota[index];
 }
 
+/**
+ * @brief
+ *
+ * @param index
+ * @return float
+ */
 float Object::getColors(int index){
     if(index>2 || index<0){
         throw std::runtime_error("out of bound in getTranslate");
@@ -66,6 +106,11 @@ float Object::getColors(int index){
     return this->colors[index];
 }
 
+/**
+ * @brief
+ *
+ * @return float
+ */
 float Object::getPi(){
     return 3.141592653589793;
 }

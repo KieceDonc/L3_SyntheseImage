@@ -5,6 +5,10 @@
 #include <GL/freeglut.h>
 #include "Object.h"
 
+/**
+ * @brief 
+ * 
+ */
 class Cube : public Object {
     public:
         Cube(float dimension, float translate[], float rota[], float colors[]);

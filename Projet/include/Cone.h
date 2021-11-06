@@ -2,6 +2,11 @@
 #define CONE_H
 
 #include "Object.h"
+
+/**
+ * @brief 
+ * 
+ */
 class Cone : public Object {
     public:
         Cone(float base, float hauteur,float translate[3], float rota[3],float colors[3]);

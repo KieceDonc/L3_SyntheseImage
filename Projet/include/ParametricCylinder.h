@@ -5,6 +5,10 @@
 #include "Object.h"
 #include "Texture.h"
 
+/**
+ * @brief 
+ * 
+ */
 class ParametricCylinder : public Object {
     public:
         ParametricCylinder(float rayon, float hauteur, int precision, float translate[], float rota[], float colors[], bool withTexture);

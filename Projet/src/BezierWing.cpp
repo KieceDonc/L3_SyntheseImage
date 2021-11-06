@@ -1,5 +1,15 @@
 #include "BezierWing.h"
 
+/**
+ * @brief Construct a new Bezier Wing:: Bezier Wing object
+ *
+ * @param scale
+ * @param precision
+ * @param symmetricalCall
+ * @param translate is an array of 3 float which contains x,y,z translations
+ * @param rota is an array of 3 float which contains x,y,z rotations
+ * @param colors is an array of 3 float which contains red,green,blue values of colors
+ */
 BezierWing::BezierWing(float scale, int precision, bool symmetricalCall, float translate[], float rota[], float colors[]) : Object(translate,rota,colors,false){
     this->scale = scale;
     this->precision = precision;
@@ -7,27 +17,47 @@ BezierWing::BezierWing(float scale, int precision, bool symmetricalCall, float t
     this->draw();
 }
 
-BezierWing::~BezierWing()
-{
-    //dtor
-}
-
+/**
+ * @brief
+ *
+ * @return true
+ * @return false
+ */
 bool BezierWing::getSymmetricalCall(){
     return this->symmetricalCall;
 }
 
+/**
+ * @brief
+ *
+ * @return float
+ */
 float BezierWing::getScale(){
     return this->scale;
 }
 
+/**
+ * @brief
+ *
+ * @return int
+ */
 int BezierWing::getPrecision(){
     return this->precision;
 }
 
+/**
+ * @brief
+ *
+ * @return float
+ */
 float BezierWing::getHauteur(){
     return 0.4f;
 }
 
+/**
+ * @brief
+ *
+ */
 void BezierWing::draw(){
     glPushMatrix();
     this->onDraw();
@@ -55,8 +85,8 @@ void BezierWing::draw(){
 
 
     // We store points at T = const ( we do that because we use them at different places )
-    float points0Bezier[this->getPrecision()][2]={};
-    float points1Bezier[this->getPrecision()][2]={};
+    float points0Bezier[this->getPrecision()][2];
+    float points1Bezier[this->getPrecision()][2];
 
     glColor3f(0.5f,0.5f,0.5f);
 

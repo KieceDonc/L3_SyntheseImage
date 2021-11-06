@@ -2,6 +2,11 @@
 #define BOX_H
 
 #include "Object.h"
+
+/**
+ * @brief
+ *
+ */
 class Box : public Object {
     public:
         Box(float largeur, float longeur, float hauteur, float translate[], float rota[], float colors[],bool withTexture);
@@ -18,7 +23,7 @@ class Box : public Object {
         float hauteur;
 
         void draw();
-        void drawOneSide(float coord0[3],float coord1[3],float coord2[3],float coord3[3]);
+        void drawSquare(float coord0[3],float coord1[3],float coord2[3],float coord3[3]);
 };
 
 #endif // BOX_H

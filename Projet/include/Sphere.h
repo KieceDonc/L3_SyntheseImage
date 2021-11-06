@@ -5,6 +5,10 @@
 #include <GL/freeglut.h>
 #include "Object.h"
 
+/**
+ * @brief 
+ * 
+ */
 class Sphere : public Object {
     public:
         Sphere(float rayon, float translate[], float colors[]);

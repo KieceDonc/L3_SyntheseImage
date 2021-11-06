@@ -6,6 +6,10 @@
 #include <jerror.h>
 #include <GL/freeglut.h>
 
+/**
+ * @brief 
+ * 
+ */
 class Texture{
     public:
         Texture(char* path);

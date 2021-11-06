@@ -4,10 +4,13 @@
 #include "Object.h"
 #include <cmath>
 
+/**
+ * @brief 
+ * 
+ */
 class BezierWing : public Object{
     public:
         BezierWing(float dimension, int precision, bool symmetricalCall, float translate[], float rota[], float colors[]);
-        virtual ~BezierWing();
 
         bool getSymmetricalCall();
         float getScale();

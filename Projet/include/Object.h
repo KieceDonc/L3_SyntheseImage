@@ -5,6 +5,10 @@
 #include <stdexcept>
 #include <cmath>
 
+/**
+ * @brief 
+ * 
+ */
 class Object{
     public:
         Object(float translate[], float rota[], float colors[], bool withTexture);
