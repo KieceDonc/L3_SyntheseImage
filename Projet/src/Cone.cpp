@@ -34,7 +34,7 @@ float Cone::getHauteur(){
 }
 
 /**
- * @brief
+ * @brief will draw the cone
  *
  */
 void Cone::draw(){

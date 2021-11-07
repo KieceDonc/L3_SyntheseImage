@@ -3,7 +3,7 @@
 /**
  * @brief Construct a new Cube:: Cube object
  *
- * @param dimension
+ * @param dimension ( size of cube )
  * @param translate is an array of 3 float which contains x,y,z translations
  * @param rota is an array of 3 float which contains x,y,z rotations
  * @param colors is an array of 3 float which contains red,green,blue values of colors
@@ -14,7 +14,7 @@ Cube::Cube(float dimension, float translate[3], float rota[3],float colors[3]) :
 }
 
 /**
- * @brief
+ * @brief return dimension ( size of cube )
  *
  * @return float
  */
@@ -23,7 +23,7 @@ float Cube::getDimension(){
 }
 
 /**
- * @brief
+ * @brief will draw the cube
  *
  */
 void Cube::draw(){

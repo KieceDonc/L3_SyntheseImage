@@ -21,8 +21,7 @@ void dessin();
 Texture headT = Texture("./assets/head.jpg");
 Texture bodyT = Texture("./assets/texturebody.jpg");
 
-int main(int argc,char **argv)
-{
+int main(int argc,char **argv){
     withAnim = true;
     wingReverse = true;
     zoom = 10;
@@ -115,7 +114,7 @@ void dessin(){
     BezierWing backwingL = BezierWing(5.0f,25,true,new float[3] {head.getDimension()/2+body.getHauteur()*0.5f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3] {0.0f,0.0f,wingAngleZ+45.0f},new float[3] {0.30f,0.30f,0.30f});
 
     /* drawing legs */
-    ParametricCylinder frontLegL = ParametricCylinder(0.45f,2.0f,3,new float[3] {head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3] {-90.0f-75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
+    ParametricCylinder frontLegL = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3] {-90.0f-75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
     ParametricCylinder frontLegR = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),cos(PI/4)*body.getRayon()},new float[3] {90.0f+75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
     ParametricCylinder backLegL = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.75,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3] {-90.0f-75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
     ParametricCylinder backLegR = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.75,-sin(PI/4)*body.getRayon(),cos(PI/4)*body.getRayon()},new float[3] {90.0f+75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
@@ -135,7 +134,7 @@ void dessin(){
 }
 
 void anim(){
-    /* Handle animation of tail */
+    /* Handle tail animation */
     if(!wingReverse){
         wingAngleZ+=1.0f/50;
     }else{

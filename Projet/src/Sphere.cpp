@@ -3,7 +3,7 @@
 /**
  * @brief Construct a new Sphere:: Sphere object
  *
- * @param rayon
+ * @param rayon of the sphere
  * @param translate is an array of 3 float which contains x,y,z translations
  * @param colors is an array of 3 float which contains red,green,blue values of colors
  */
@@ -13,7 +13,7 @@ Sphere::Sphere(float rayon, float translate[3],float colors[3]) : Object(transla
 }
 
 /**
- * @brief
+ * @brief return rayon of the sphere
  *
  * @return float
  */
@@ -22,7 +22,7 @@ float Sphere::getRayon(){
 }
 
 /**
- * @brief will draw the sphere object
+ * @brief will draw the sphere
  *
  */
 void Sphere::draw(){

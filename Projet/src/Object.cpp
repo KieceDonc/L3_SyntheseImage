@@ -16,7 +16,6 @@ Object::Object(float translate[], float rota[], float colors[], bool withTexture
     }else if(std::isnan(translate[0])||std::isnan(translate[1])||std::isnan(translate[2])){
         throw std::runtime_error("translate contain a floating point number who's not a number");
     }
-
     this->translate = translate;
 
     if(rota==nullptr){
@@ -31,7 +30,6 @@ Object::Object(float translate[], float rota[], float colors[], bool withTexture
     }else if(std::isnan(colors[0])||std::isnan(colors[1])||std::isnan(colors[2])){
         throw std::runtime_error("colors contain a floating point number who's not-a-number");
     }
-
     this->colors = colors;
 }
 
@@ -46,7 +44,7 @@ Object::~Object(){
 }
 
 /**
- * @brief
+ * @brief Use to apply translation / rotations / colors. Must be call before drawing object and inside local glPushMatrix() / glPopMatrix()
  *
  */
 void Object::onDraw(){
@@ -58,7 +56,7 @@ void Object::onDraw(){
 }
 
 /**
- * @brief
+ * @brief return if the object will be with texture or not
  *
  * @return true
  * @return false
@@ -68,7 +66,7 @@ bool Object::isWithTexture(){
 }
 
 /**
- * @brief
+ * @brief return one translation. Index 0 = x, index 1 = y, index 2 = z
  *
  * @param index
  * @return float
@@ -81,7 +79,7 @@ float Object::getTranslate(int index){
 }
 
 /**
- * @brief
+ * @brief return one rotation. Index 0 = x, index 1 = y, index 2 = z
  *
  * @param index
  * @return float
@@ -94,7 +92,7 @@ float Object::getRota(int index){
 }
 
 /**
- * @brief
+ * @brief return one rgb composante. Index 0 = r, index 1 = g, index 2 = b
  *
  * @param index
  * @return float
@@ -107,7 +105,7 @@ float Object::getColors(int index){
 }
 
 /**
- * @brief
+ * @brief return an approximate value of PI
  *
  * @return float
  */
