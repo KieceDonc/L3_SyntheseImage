@@ -5,3 +5,7 @@ Projet/doxygen/latex/
 */bin/Debug/
 */obj/Debug/
 */.vscode/
+Projet/latex/*.log
+Projet/latex/*.aux
+Projet/latex/*.out
+Projet/latex/*.gz

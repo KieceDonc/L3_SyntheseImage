@@ -1,0 +1,122 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lachaise Assignment
+% LaTeX Template
+% Version 1.0 (26/6/2018)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Marion Lachaise & François Févotte
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Synthèse d'image : compte rendu} % Title of the assignment
+
+\author{Valentin VERSTRACTE \& Evan PETIT}
+
+\date{L3 --- \today} % University, school and/or department name(s) and a date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\section*{Introduction} % Unnumbered section
+
+
+%----------------------------------------------------------------------------------------
+%	Répertoire
+%----------------------------------------------------------------------------------------
+
+\section{Une conception orienté objet} % Numbered section
+
+Chaque primitive, courbe de bézier et courbe paramétrique sont représenter par des classes. Chaqu'une d'elle dérivée d'une classe objet qui va nous permettre de connaître et d'effectuer la translation
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=5cm]{./assets/class_hierarchy.png}
+    \caption{Diagramme de classes}
+    \label{fig:classe}
+\end{figure}
+
+
+%------------------------------------------------
+
+\section{Les ailes, deux courbes de bézier}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=10cm]{./assets/kig_bezier.png}
+    \caption{Courbe de bézier sur kig}
+    \label{fig:classe}
+\end{figure}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=5cm]{./assets/openGL_bezier.png}
+    \caption{Courbe de bézier sur openGL}
+    \label{fig:classe}
+\end{figure}
+
+
+%------------------------------------------------
+
+\section{Le cylindre paramétrique}
+
+%------------------------------------------------
+
+\section{Les textures}
+
+%------------------------------------------------
+
+\section{Les animations}
+
+\subsection{Une animation automatique}
+
+L'animation automatique se porte les ailes du dragon. On incrémente un angle de + ou - 25 ° se qui donne l'impression de voler. La logique algorithmique est plûtot simple. On incrémente un tout petit l'angle dans la fonction anim ( appeler par glut une fois qu'il ne fait rien ). Si l'angle est supérieur à 25 on décremente. Si l'angle est inférieur à -25 on incrémente. 
+ 
+\subsection{Une animation manuelle}
+
+L'animation n'est pas très impressionnante. On peut juste baisser ou lever la queue ... On fonction des touches h et n.
+
+%------------------------------------------------
+
+\section{Les touches disponibles}
+
+\begin{itemize}
+\item \keystroke{p}: affichage du carré plein
+\item \keystroke{f} : affichage du mode de fil de fer
+\item \keystroke{s} : affichage en mode de sommets seuls
+\item \keystroke{z} : permet de zoomer
+\item \keystroke{Z} : permet de dézoomer 
+\item \keystroke{h} : élève la queue du dragon
+\item \keystroke{n} : abaisse la queue du dragon 
+\item \keystroke{q} : quitter l'application 
+\item \UArrow \DArrow \LArrow \RArrow : déplace la caméra en haut, en bas, à droite, à gauche
+
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

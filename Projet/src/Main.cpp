@@ -22,7 +22,7 @@ Texture headT = Texture("./assets/head.jpg");
 Texture bodyT = Texture("./assets/texturebody.jpg");
 
 int main(int argc,char **argv){
-    withAnim = true;
+    withAnim = false;
     wingReverse = true;
     zoom = 10;
 
