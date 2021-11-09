@@ -106,6 +106,7 @@ float Object::getColors(int index){
 
 /**
  * @brief return an approximate value of PI
+ * @brief return an approximate value of PI
  *
  * @return float
  */

@@ -21,6 +21,7 @@
 
 \documentclass{article}
 
+\input{equation.tex} % Include the file specifying mathematic equation
 \input{structure.tex} % Include the file specifying the document structure and custom commands
 
 %----------------------------------------------------------------------------------------
@@ -45,38 +46,27 @@
 
 \section*{Introduction} % Unnumbered section
 
-
 %----------------------------------------------------------------------------------------
 %	Répertoire
 %----------------------------------------------------------------------------------------
 
 \section{Une conception orienté objet} % Numbered section
 
-Chaque primitive, courbe de bézier et courbe paramétrique sont représenter par des classes. Chaqu'une d'elle dérivée d'une classe objet qui va nous permettre de connaître et d'effectuer la translation
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=5cm]{./assets/class_hierarchy.png}
-    \caption{Diagramme de classes}
-    \label{fig:classe}
-\end{figure}
+Chaque primitive, courbe de bézier et courbe paramétrique sont représenter par des classes. Chacune d'elle est dérivée de la classe objet qui permet de contenir et d'effectuer la translation, la rotation, les couleurs et si "l'objet" est lié à une texture ou non. Ensuite, dans ces classes dérivée, le constructeur initialise les différents attributs. Il appel la fonction draw qui, comme l'indique son nom, dessine. Cette structure aussi efficace que pratique exige cependant des conditions : La méthode draw doit commencer par un glPushMatrix() et this->onDraw (hérité de objet) et doit finir par un glPopMatrix().
 
 
-%------------------------------------------------
-
-\section{Les ailes, deux courbes de bézier}
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=10cm]{./assets/kig_bezier.png}
-    \caption{Courbe de bézier sur kig}
-    \label{fig:classe}
-\end{figure}
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=5cm]{./assets/openGL_bezier.png}
-    \caption{Courbe de bézier sur openGL}
-    \label{fig:classe}
+\begin{figure}[!htb]
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=6cm]{./assets/class_hierarchy.png}
+    	\caption{Diagramme de classes}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=6cm]{./assets/class_hierarchy_bezier.png}
+    	\caption{Exemple diagramme classe bézier}
+	\end{minipage}
 \end{figure}
 
 
@@ -84,9 +74,93 @@ Chaque primitive, courbe de bézier et courbe paramétrique sont représenter pa
 
 \section{Le cylindre paramétrique}
 
+Le cylindre paramétrique dépend de 3 paramètres importants : le rayon, la hauteur et la précision. Le rayon et la hauteur sont plutôt révélateur de ce qu'ils sont. Cependant comme on utilise une équation paramétrique il est nécessaire d'évaluer les points à un instant t. La précision représente justement le nombre d'évaluation que l'on va effectuer. Elle représente aussi le nombre de face que le cylindre va obtenir. 
+
+Ainsi pour construire ce cylindre, 2 étapes sont importantes : 
+- évaluer les points autour d'un cercle de rayon donner en paramètre
+
+%------------------------------------------------
+
+\section{Les ailes, deux courbes de bézier}
+
+\subsection{La représentation 2D}
+
+Les ailes sont construites à partir de deux courbes de bézier cubiques. Une courbe de bézier cubique est une courbe polynomiale paramétrique à partir de 4 points de contrôle. On rappel l'équation pour évaluer un point d'une courbe de bézier :
+\equabezier
+Où P0, P1, P2, P3 représente les points de contrôle. Ainsi tout comme notre cylindre paramétrique, cette classe aura besoin d'un paramètre précision pour déterminer le nombre de points à évaluer.
+
+\begin{figure}[!htb]
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=4.5cm]{./assets/kig_bezier.png}
+    	\caption{Courbes de bézier sur kig}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=4.5cm]{./assets/2D_bezier.png}
+    	\caption{Courbes de bézier 2D openGL}
+	\end{minipage}
+\end{figure}
+
+La figure 2 montre la représentation 2D et le choix des différents points de contrôle pour les deux courbes. Pour représenter cette aile avec openGL, on va construire un polygone en 2D où chaque point du polygone appartient à une de nos deux courbes de bézier. On commence par les points de la courbe en bleu puis on finit avec les points de celle en rouge. On commence de (0,0), on monte jusqu'en (-3,2) et on redescend jusqu'en (0,0). On obtient une aile en 2D cf figure 3. 
+\newline
+\newline
+Pour simplifier les dimensions deux opérations supplémentaires sont effectuer au tout début. Les points de contrôle on un maximum de 3 en x et z. On divise d'abord tout les points de contrôle par 3 pour que la taille maximum de l'aile soit de 1 en x et z. Ensuite, on ne souhaite pas forcément que les ailes soit aussi petite. On rajoute un paramètre dimension dans notre classe et on multiplie tout nos points de contrôle par ce paramètre. Ainsi la taille maximum en x et z serra la valeur de "dimension".
+
+\subsection{La représentation 3D}
+
+\begin{figure}[!htb]
+	\centering
+	\begin{minipage}{0.3\textwidth}
+    	\centering
+    	\includegraphics[height=3cm]{./assets/3D_0_bezier.png}
+    	\caption{Vue 0}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+    	\centering
+    	\includegraphics[height=3cm]{./assets/3D_1_bezier.png}
+    	\caption{Vue 1}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+    	\centering
+    	\includegraphics[height=3cm]{./assets/3D_2_bezier.png}
+    	\caption{Vue 2}
+	\end{minipage}
+\end{figure}
+En gris, la même aile et "premier polygone" que la figure 3. En blanc "deuxième polygone". En bleu "troisième polygone". En jaune "quatrième polygone"
+\newline
+\newline
+La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux ailes 2D de hauteur 0 et une deuxième de hauteur de 0.4 dans le plus grand des cas. La deuxième est légèrement "penché". Sa hauteur vers la courbe bleue (cf figure 2) commence vers 1/3 de la hauteur max tandis que vers la courbe rouge, elle est de 0.4 ( hauteur max ). Le troisième est constituer des points de la courbe bleu de la figure 2 en bleue qui commence à la hauteur de la première aile 2D jusqu'à la hauteur de la deuxième aile 2D. La quatrième est équivalente fausse qu'on l'applique pour la courbe rouge ( cf figure 2 ).
+
+
+
+\subsection{Le problème de symétrie}
+
+\begin{figure}[!htb]
+	\centering
+	\begin{minipage}{0.3\textwidth}
+    	\centering
+    	\includegraphics[height=4cm]{./assets/3D_symetrie_0_bezier.png}
+    	\caption{Symétrie incorrecte}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+    	\centering
+    	\includegraphics[height=4cm]{./assets/3D_symetrie_1_bezier.png}
+    	\caption{Tentative de rotation}
+	\end{minipage}
+	\begin{minipage}{0.3\textwidth}
+    	\centering
+    	\includegraphics[height=4cm]{./assets/3D_symetrie_2_bezier.png}
+    	\caption{Problème résolu}
+	\end{minipage}
+\end{figure}
+
 %------------------------------------------------
 
 \section{Les textures}
+
+Une texture est représenté par une classe. Son constructeur prend en paramètre un string qui s'occupe de charger en mémoire la texture. Ensuite, pour décrire qu'il faut utiliser cette texture il suffit d'appeler enableTexture() sur l'objet instancié. Cette fonction appel simplement glTextImage2D() de glut avec les paramètres nécessaire.  
 
 %------------------------------------------------
 
@@ -94,18 +168,18 @@ Chaque primitive, courbe de bézier et courbe paramétrique sont représenter pa
 
 \subsection{Une animation automatique}
 
-L'animation automatique se porte les ailes du dragon. On incrémente un angle de + ou - 25 ° se qui donne l'impression de voler. La logique algorithmique est plûtot simple. On incrémente un tout petit l'angle dans la fonction anim ( appeler par glut une fois qu'il ne fait rien ). Si l'angle est supérieur à 25 on décremente. Si l'angle est inférieur à -25 on incrémente. 
+L'animation automatique se porte les ailes du dragon. On incrémente un angle de + ou - 25 ° se qui donne au dragon l'impression de voler. La logique algorithmique est plutôt simple. On incrémente un tout petit l'angle dans la fonction anim ( appeler par glut chaque fois qu'il ne fait rien ). Si l'angle est supérieur à 25 on décremente. Si l'angle est inférieur à -25 on incrémente. 
  
 \subsection{Une animation manuelle}
 
-L'animation n'est pas très impressionnante. On peut juste baisser ou lever la queue ... On fonction des touches h et n.
+L'animation n'est pas très impressionnante. En peut juste baisser ou lever la queue en fonction des touches h et n
 
 %------------------------------------------------
 
 \section{Les touches disponibles}
 
 \begin{itemize}
-\item \keystroke{p}: affichage du carré plein
+\item \keystroke{p} : affichage du carré plein
 \item \keystroke{f} : affichage du mode de fil de fer
 \item \keystroke{s} : affichage en mode de sommets seuls
 \item \keystroke{z} : permet de zoomer

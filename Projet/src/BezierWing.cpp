@@ -114,7 +114,7 @@ void BezierWing::draw(){
 
     // drawing upper part
     glBegin(GL_POLYGON);
-        for(int t = 0;t<this->getPrecision();t++){
+        for(int t = 0;t<this->getPrecision()-1;t++){
             glVertex3f(points0Bezier[t][0],this->getHauteur(),points0Bezier[t][1]);
         }
         for(int t = 0;t<precision;t++){
@@ -138,7 +138,7 @@ void BezierWing::draw(){
     glColor3f(0.0f,1.0f,1.0f);
 
     // drawing of the side of the first curve
-    for(int t = 0;t<precision-1;t++){
+    for(int t = 0;t<precision;t++){
         glBegin(GL_POLYGON);
             glVertex3f(points1Bezier[t][0],0,points1Bezier[t][1]);
             glVertex3f(points1Bezier[t][0],this->getHauteur()/3,points1Bezier[t][1]);
