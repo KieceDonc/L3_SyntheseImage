@@ -38,11 +38,17 @@
 
 \usepackage{dirtree}
 
-\usepackage{hyperref}
-
 \usepackage{xcolor}
 
 \usepackage{graphicx}
+
+\definecolor{navy}{rgb}{0.0, 0.0, 0.5}
+
+\usepackage[%  
+    colorlinks=true,
+    pdfborder={0 0 0},
+    linkcolor=navy
+]{hyperref}
 
 %----------------------------------------------------------------------------------------
 %	DOCUMENT MARGINS
@@ -236,4 +242,15 @@
 		\noindent{\textbf{#1}}
 }{
 	\end{mdframed}
+}
+
+
+%----------------------------------------------------------------------------------------
+%	EQUATION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\equabezier}{
+	\begin{displaymath}
+		P(t) = P_0(1-t)^3+3P_1t(1-t)^2+3P_2t^2(1-t)+P_3t^3	
+	\end{displaymath}
 }

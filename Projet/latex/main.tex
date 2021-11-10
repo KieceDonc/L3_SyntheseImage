@@ -21,7 +21,6 @@
 
 \documentclass{article}
 
-\input{equation.tex} % Include the file specifying mathematic equation
 \input{structure.tex} % Include the file specifying the document structure and custom commands
 
 %----------------------------------------------------------------------------------------
@@ -52,38 +51,65 @@
 
 \section{Une conception orienté objet} % Numbered section
 
-Chaque primitive, courbe de bézier et courbe paramétrique sont représenter par des classes. Chacune d'elle est dérivée de la classe objet qui permet de contenir et d'effectuer la translation, la rotation, les couleurs et si "l'objet" est lié à une texture ou non. Ensuite, dans ces classes dérivée, le constructeur initialise les différents attributs. Il appel la fonction draw qui, comme l'indique son nom, dessine. Cette structure aussi efficace que pratique exige cependant des conditions : La méthode draw doit commencer par un glPushMatrix() et this->onDraw (hérité de objet) et doit finir par un glPopMatrix().
-
+Chaque primitive, courbe de bézier et courbe paramétrique sont représenter par des classes. Chacune d'elle est dérivée de la classe objet. Cette classe objet permet de contenir et d'effectuer la translation, la rotation, les couleurs et si "l'objet" est lié à une texture ou non. Pour appliquer tout cela, il suffit d'appeler this->onDraw() qui s'occupe de tout le reste. Ensuite, dans ces classes dérivée, le constructeur initialise les différents attributs. Il appel la fonction draw qui, comme l'indique son nom, dessine. Cette structure aussi efficace que pratique exige cependant des conditions : La méthode draw doit commencer par un glPushMatrix() et this->onDraw() (hérité de objet) et doit finir par un glPopMatrix(). 
 
 \begin{figure}[!htb]
 	\begin{minipage}{0.5\textwidth}
     	\centering
     	\includegraphics[height=6cm]{./assets/class_hierarchy.png}
     	\caption{Diagramme de classes}
+    	\label{fig:class_hierarchy}
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.5\textwidth}
     	\centering
     	\includegraphics[height=6cm]{./assets/class_hierarchy_bezier.png}
     	\caption{Exemple diagramme classe bézier}
+    	\label{fig:class_hierarchy_bezier}
 	\end{minipage}
 \end{figure}
 
 
-%------------------------------------------------
+\subsection{Le cylindre paramétrique}
 
-\section{Le cylindre paramétrique}
+\begin{figure}[!htb]
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=4.5cm]{./assets/cylindre_para_0.png}
+		\caption{30 points évalués}
+    	\label{fig:cylindre_para_0}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=6cm]{./assets/cylindre_para_1.png}
+    	\caption{La construction des polygones}
+    	\label{fig:cylindre_para_1}
+	\end{minipage}
+\end{figure}
 
 Le cylindre paramétrique dépend de 3 paramètres importants : le rayon, la hauteur et la précision. Le rayon et la hauteur sont plutôt révélateur de ce qu'ils sont. Cependant comme on utilise une équation paramétrique il est nécessaire d'évaluer les points à un instant t. La précision représente justement le nombre d'évaluation que l'on va effectuer. Elle représente aussi le nombre de face que le cylindre va obtenir. 
+\newline
+\newline
+Ainsi pour construire ce cylindre plusieurs étapes sont importantes :
 
-Ainsi pour construire ce cylindre, 2 étapes sont importantes : 
-- évaluer les points autour d'un cercle de rayon donner en paramètre
+\begin{itemize}
+\item On évalue les points autour d'un cercle de rayon donner en paramètre. On obtient pour chaque point une coordonnée (x,z) que l'on stock dans un tableau à l'indice t. Exemple de 30 points figure \ref{fig:cylindre_para_0}
+\item On crée des polygones à partir de ces points :
+	\begin{itemize}
+		\item La partie inférieur gauche est égale à x(t),0,z(t)
+		\item La partie inférieur droite est égale à x(t+1),0,z(t+1)
+		\item La partie supérieur gauche est égale à x(t),hauteur,z(t)
+		\item La partie supérieur droite est égale à x(t+1),0,z(t+1)
+	\end{itemize}
+Exemple de polygones avec les 30 points précédent (vision fil de fer) figure \ref{fig:cylindre_para_1}
+\item On ferme la partie inférieur et supérieur en créent 2 polygones en utilisant tout les points contenu dans t. On le fait d'abord pour un premier polygone à la hauteur 0, puis pour le deuxième à la hauteur donnée en paramètre
+\end{itemize}
 
-%------------------------------------------------
 
-\section{Les ailes, deux courbes de bézier}
+\subsection{Les ailes, deux courbes de bézier}
 
-\subsection{La représentation 2D}
+\subsubsection{La représentation 2D}
 
 Les ailes sont construites à partir de deux courbes de bézier cubiques. Une courbe de bézier cubique est une courbe polynomiale paramétrique à partir de 4 points de contrôle. On rappel l'équation pour évaluer un point d'une courbe de bézier :
 \equabezier
@@ -94,48 +120,51 @@ Où P0, P1, P2, P3 représente les points de contrôle. Ainsi tout comme notre c
     	\centering
     	\includegraphics[height=4.5cm]{./assets/kig_bezier.png}
     	\caption{Courbes de bézier sur kig}
+    	\label{fig:kig_bezier}
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.5\textwidth}
     	\centering
     	\includegraphics[height=4.5cm]{./assets/2D_bezier.png}
     	\caption{Courbes de bézier 2D openGL}
+    	\label{fig:2D_bezier}
 	\end{minipage}
 \end{figure}
 
-La figure 2 montre la représentation 2D et le choix des différents points de contrôle pour les deux courbes. Pour représenter cette aile avec openGL, on va construire un polygone en 2D où chaque point du polygone appartient à une de nos deux courbes de bézier. On commence par les points de la courbe en bleu puis on finit avec les points de celle en rouge. On commence de (0,0), on monte jusqu'en (-3,2) et on redescend jusqu'en (0,0). On obtient une aile en 2D cf figure 3. 
+La figure 2 montre la représentation 2D et le choix des différents points de contrôle pour les deux courbes. Pour représenter cette aile avec openGL, on va construire un polygone en 2D où chaque point du polygone appartient à une de nos deux courbes de bézier. On commence par les points de la courbe en bleu puis on finit avec les points de celle en rouge. On commence de (0,0), on monte jusqu'en (-3,2) et on redescend jusqu'en (0,0). On obtient une aile en 2D cf figure \ref{fig:2D_bezier}. 
 \newline
 \newline
 Pour simplifier les dimensions deux opérations supplémentaires sont effectuer au tout début. Les points de contrôle on un maximum de 3 en x et z. On divise d'abord tout les points de contrôle par 3 pour que la taille maximum de l'aile soit de 1 en x et z. Ensuite, on ne souhaite pas forcément que les ailes soit aussi petite. On rajoute un paramètre dimension dans notre classe et on multiplie tout nos points de contrôle par ce paramètre. Ainsi la taille maximum en x et z serra la valeur de "dimension".
 
-\subsection{La représentation 3D}
+\subsubsection{La représentation 3D}
 
 \begin{figure}[!htb]
 	\centering
 	\begin{minipage}{0.3\textwidth}
     	\centering
     	\includegraphics[height=3cm]{./assets/3D_0_bezier.png}
-    	\caption{Vue 0}
+    	\caption{Vue 3D 0}
+    	\label{fig:3D_0_bezier}
 	\end{minipage}
 	\begin{minipage}{0.3\textwidth}
     	\centering
     	\includegraphics[height=3cm]{./assets/3D_1_bezier.png}
-    	\caption{Vue 1}
+    	\caption{Vue 3D 1}
+    	\label{fig:3D_1_bezier}
 	\end{minipage}
 	\begin{minipage}{0.3\textwidth}
     	\centering
     	\includegraphics[height=3cm]{./assets/3D_2_bezier.png}
-    	\caption{Vue 2}
+    	\caption{Vue 3D 2}
+    	\label{fig:3D_2_bezier}
 	\end{minipage}
 \end{figure}
-En gris, la même aile et "premier polygone" que la figure 3. En blanc "deuxième polygone". En bleu "troisième polygone". En jaune "quatrième polygone"
+En gris, la même aile et "premier polygone" que la figure \ref{fig:2D_bezier}. En blanc "deuxième polygone". En bleu "troisième polygone". En jaune "quatrième polygone"
 \newline
 \newline
-La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux ailes 2D de hauteur 0 et une deuxième de hauteur de 0.4 dans le plus grand des cas. La deuxième est légèrement "penché". Sa hauteur vers la courbe bleue (cf figure 2) commence vers 1/3 de la hauteur max tandis que vers la courbe rouge, elle est de 0.4 ( hauteur max ). Le troisième est constituer des points de la courbe bleu de la figure 2 en bleue qui commence à la hauteur de la première aile 2D jusqu'à la hauteur de la deuxième aile 2D. La quatrième est équivalente fausse qu'on l'applique pour la courbe rouge ( cf figure 2 ).
+La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux ailes 2D de hauteur 0 et une deuxième de hauteur de 0.4 dans le plus grand des cas. La deuxième est légèrement "penché". Sa hauteur vers la courbe bleue (cf figure \ref{fig:kig_bezier}) commence vers 1/3 de la hauteur max tandis que vers la courbe rouge, elle est de 0.4 (hauteur max). Le troisième est constituer des points de la courbe bleu de la figure \ref{fig:kig_bezier} en bleue qui commence à la hauteur de la première aile 2D jusqu'à la hauteur de la deuxième aile 2D. La quatrième est équivalente hormis qu'on l'applique pour la courbe rouge de figure \ref{fig:kig_bezier}.
 
-
-
-\subsection{Le problème de symétrie}
+\subsubsection{Le problème de symétrie}
 
 \begin{figure}[!htb]
 	\centering
@@ -143,24 +172,33 @@ La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux
     	\centering
     	\includegraphics[height=4cm]{./assets/3D_symetrie_0_bezier.png}
     	\caption{Symétrie incorrecte}
+    	\label{fig:3D_symetrie_0_bezier}
 	\end{minipage}
 	\begin{minipage}{0.3\textwidth}
     	\centering
     	\includegraphics[height=4cm]{./assets/3D_symetrie_1_bezier.png}
     	\caption{Tentative de rotation}
+    	\label{fig:3D_symetrie_1_bezier}
 	\end{minipage}
 	\begin{minipage}{0.3\textwidth}
     	\centering
     	\includegraphics[height=4cm]{./assets/3D_symetrie_2_bezier.png}
     	\caption{Problème résolu}
+    	\label{fig:3D_symetrie_2_bezier}
 	\end{minipage}
 \end{figure}
+
+Un problème inattendu pour essayer de créer des ailes comme dans la figure \ref{fig:3D_symetrie_2_bezier} (résultat final) a été tout d'abord celui de la figure \ref{fig:3D_symetrie_0_bezier}. Une rotation a été naïvement tenté pour résoudre le problème cf figure 9 mais le résultat n'est toujours pas bon (notamment à cause de la hauteur de 1/3 (cf figure \ref{fig:3D_1_bezier} le bleu) "en dessous au lieu de haut dessus"). Pour obtenir la figure \ref{fig:3D_symetrie_2_bezier} et résoudre le problème il a été décidé de jouer avec les coordonnées des points de contrôle. Il suffit de prendre l'opposé en z pour obtenir une deuxième aile symétrique. Ainsi un booléen symetricall a été rajouté à notre classe pour préciser si on souhaite prendre des points de coordonnées avec l'opposé en z. 
+
+\subsection{La box}
+
+\subsection{Les primitives}
 
 %------------------------------------------------
 
 \section{Les textures}
 
-Une texture est représenté par une classe. Son constructeur prend en paramètre un string qui s'occupe de charger en mémoire la texture. Ensuite, pour décrire qu'il faut utiliser cette texture il suffit d'appeler enableTexture() sur l'objet instancié. Cette fonction appel simplement glTextImage2D() de glut avec les paramètres nécessaire.  
+Une texture est représenté par une classe. Son constructeur prend en paramètre un string qui s'occupe de charger en mémoire la texture. Ensuite, pour décrire qu'il faut utiliser cette texture il suffit d'appeler enableTexture() sur l'objet instancié. Cette fonction appelle simplement glTextImage2D() de glut avec les paramètres nécessaire.  
 
 %------------------------------------------------
 
@@ -188,7 +226,6 @@ L'animation n'est pas très impressionnante. En peut juste baisser ou lever la q
 \item \keystroke{n} : abaisse la queue du dragon 
 \item \keystroke{q} : quitter l'application 
 \item \UArrow \DArrow \LArrow \RArrow : déplace la caméra en haut, en bas, à droite, à gauche
-
 \end{itemize}
 
 %----------------------------------------------------------------------------------------

@@ -88,7 +88,7 @@ void BezierWing::draw(){
     float points1Bezier[this->getPrecision()][2];
 
     // We evaluate bezier points at a certain T
-    for(int t = 0;t<this->getPrecision();t++){
+    for(int t = 0;t<=this->getPrecision();t++){
         float currentT = (t+0.0f)/this->getPrecision();
         points0Bezier[t][0] = courbeBezier0[0][0]*std::pow((1-currentT),3)+3*courbeBezier0[1][0]*currentT*std::pow((1-currentT),2)+3*courbeBezier0[2][0]*std::pow(currentT,2)*(1-currentT)+courbeBezier0[3][0]*std::pow(currentT,3);
         points0Bezier[t][1] = courbeBezier0[0][1]*std::pow((1-currentT),3)+3*courbeBezier0[1][1]*currentT*std::pow((1-currentT),2)+3*courbeBezier0[2][1]*std::pow(currentT,2)*(1-currentT)+courbeBezier0[3][1]*std::pow(currentT,3);
@@ -126,7 +126,7 @@ void BezierWing::draw(){
     glColor3f(1.0f,1.0f,0.0f);
 
     // drawing of the side of the second curve
-    for(int t = 0;t<this->getPrecision()-1;t++){
+    for(int t = 0;t<this->getPrecision();t++){
         glBegin(GL_POLYGON);
             glVertex3f(points0Bezier[t][0],0,points0Bezier[t][1]);
             glVertex3f(points0Bezier[t][0],this->getHauteur(),points0Bezier[t][1]);
@@ -138,7 +138,7 @@ void BezierWing::draw(){
     glColor3f(0.0f,1.0f,1.0f);
 
     // drawing of the side of the first curve
-    for(int t = 0;t<precision;t++){
+    for(int t = 0;t<this->getPrecision();t++){
         glBegin(GL_POLYGON);
             glVertex3f(points1Bezier[t][0],0,points1Bezier[t][1]);
             glVertex3f(points1Bezier[t][0],this->getHauteur()/3,points1Bezier[t][1]);
