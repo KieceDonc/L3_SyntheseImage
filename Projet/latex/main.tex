@@ -27,8 +27,7 @@
 %	ASSIGNMENT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title{Synthèse d'image : compte rendu} % Title of the assignment
-
+\title{Synthèse d'image : compte rendu, le dragon abeille} % Title of the assignment
 \author{Valentin VERSTRACTE \& Evan PETIT}
 
 \date{L3 --- \today} % University, school and/or department name(s) and a date
@@ -40,10 +39,22 @@
 \maketitle % Print the title
 
 %----------------------------------------------------------------------------------------
-%	INTRODUCTION
+%	Table des matières
 %----------------------------------------------------------------------------------------
 
-\section*{Introduction} % Unnumbered section
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+
+%----------------------------------------------------------------------------------------
+%	PREVIEW
+%----------------------------------------------------------------------------------------
+
+\begin{figure}[!htb]
+	\centering
+    	\includegraphics[height=9cm]{./assets/dragon_abeille.png}
+    	\caption{A CHANGER}
+    	\label{fig:dragon_abeille}
+\end{figure}
 
 %----------------------------------------------------------------------------------------
 %	Répertoire
@@ -131,7 +142,7 @@ Où P0, P1, P2, P3 représente les points de contrôle. Ainsi tout comme notre c
 	\end{minipage}
 \end{figure}
 
-La figure 2 montre la représentation 2D et le choix des différents points de contrôle pour les deux courbes. Pour représenter cette aile avec openGL, on va construire un polygone en 2D où chaque point du polygone appartient à une de nos deux courbes de bézier. On commence par les points de la courbe en bleu puis on finit avec les points de celle en rouge. On commence de (0,0), on monte jusqu'en (-3,2) et on redescend jusqu'en (0,0). On obtient une aile en 2D cf figure \ref{fig:2D_bezier}. 
+La figure \ref{fig:kig_bezier} montre la représentation 2D et le choix des différents points de contrôle pour les deux courbes. Pour représenter cette aile avec openGL, on va construire un polygone en 2D où chaque point du polygone appartient à une de nos deux courbes de bézier. On commence par les points de la courbe en bleu puis on finit avec les points de celle en rouge. On commence de (0,0), on monte jusqu'en (-3,2) et on redescend jusqu'en (0,0). On obtient une aile en 2D cf figure \ref{fig:2D_bezier}. 
 \newline
 \newline
 Pour simplifier les dimensions deux opérations supplémentaires sont effectuer au tout début. Les points de contrôle on un maximum de 3 en x et z. On divise d'abord tout les points de contrôle par 3 pour que la taille maximum de l'aile soit de 1 en x et z. Ensuite, on ne souhaite pas forcément que les ailes soit aussi petite. On rajoute un paramètre dimension dans notre classe et on multiplie tout nos points de contrôle par ce paramètre. Ainsi la taille maximum en x et z serra la valeur de "dimension".
@@ -191,14 +202,51 @@ La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux
 Un problème inattendu pour essayer de créer des ailes comme dans la figure \ref{fig:3D_symetrie_2_bezier} (résultat final) a été tout d'abord celui de la figure \ref{fig:3D_symetrie_0_bezier}. Une rotation a été naïvement tenté pour résoudre le problème cf figure 9 mais le résultat n'est toujours pas bon (notamment à cause de la hauteur de 1/3 (cf figure \ref{fig:3D_1_bezier} le bleu) "en dessous au lieu de haut dessus"). Pour obtenir la figure \ref{fig:3D_symetrie_2_bezier} et résoudre le problème il a été décidé de jouer avec les coordonnées des points de contrôle. Il suffit de prendre l'opposé en z pour obtenir une deuxième aile symétrique. Ainsi un booléen symetricall a été rajouté à notre classe pour préciser si on souhaite prendre des points de coordonnées avec l'opposé en z. 
 
 \subsection{La box}
+	
+La box est un parallélépipède rectangle composé d'une longueur, largeur et hauteur comme décrit figure \ref{fig:box}. On recevra ainsi ces 3 composantes en paramètre de notre classe. L'objet est centré en (0,0,0). Sa construction est simple. Pour une face on envoie dans une fonction les quatre coordonnées d'une face d'un cube (coordonnées tel que la figure \ref{fig:box_construction}). On multiple ensuite respectivement les coordonnées x, y et z par la moitié de : la longeur, largeur et hauteur. On crée à partir de ces points un polygone qui nous donne une face de notre box. On répète l'opération pour toutes les faces et on obtient notre box centrée en (0,0,0).
+
+
+\begin{figure}[!htb]
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=4.5cm]{./assets/box.jpg}
+    	\caption{Représentation de la box}
+    	\label{fig:box}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.5\textwidth}
+    	\centering
+    	\includegraphics[height=5cm]{./assets/box_construction.png}
+    	\caption{Coordonnées du carré servant "de base"}
+    	\label{fig:box_construction}
+	\end{minipage}
+\end{figure}
 
 \subsection{Les primitives}
+
+Il n'y a pas grand à chose à dire sur les primitives utiliser. Elles sont juste entouré de cette conception objet ce qui, aurait très bien pu ce faire sans. Il a tout de même été choisit de les moulés dans cette conception pour garder le code propre et lisible. 
+\newline
+\newline
+Les primitives utilisés sont : 
+\begin{itemize}
+	\item Le cone
+	\item Le cube ( que l'on aurait pu se passer en donnant une longeur / largeur / hauteur de 1 à la box )
+	\item La sphère
+\end{itemize}
 
 %------------------------------------------------
 
 \section{Les textures}
 
 Une texture est représenté par une classe. Son constructeur prend en paramètre un string qui s'occupe de charger en mémoire la texture. Ensuite, pour décrire qu'il faut utiliser cette texture il suffit d'appeler enableTexture() sur l'objet instancié. Cette fonction appelle simplement glTextImage2D() de glut avec les paramètres nécessaire.  
+\newline
+\newline
+Comme chaque classe hérite de objet, elle peut utiliser la fonction isWithTexture() pour savoir si elle a besoin de traduire des coordonnées en "coordonnées de texture". Chaque classe gère localement cette traduction.
+
+
+%------------------------------------------------
+
+\section{Les lumières}
 
 %------------------------------------------------
 
@@ -207,7 +255,9 @@ Une texture est représenté par une classe. Son constructeur prend en paramètr
 \subsection{Une animation automatique}
 
 L'animation automatique se porte les ailes du dragon. On incrémente un angle de + ou - 25 ° se qui donne au dragon l'impression de voler. La logique algorithmique est plutôt simple. On incrémente un tout petit l'angle dans la fonction anim ( appeler par glut chaque fois qu'il ne fait rien ). Si l'angle est supérieur à 25 on décremente. Si l'angle est inférieur à -25 on incrémente. 
- 
+\newline
+\newline
+L'animation étant très demandeuse de ressources, il est possible de la désactiver / activer avec la touche A.
 \subsection{Une animation manuelle}
 
 L'animation n'est pas très impressionnante. En peut juste baisser ou lever la queue en fonction des touches h et n
@@ -223,10 +273,17 @@ L'animation n'est pas très impressionnante. En peut juste baisser ou lever la q
 \item \keystroke{z} : permet de zoomer
 \item \keystroke{Z} : permet de dézoomer 
 \item \keystroke{h} : élève la queue du dragon
-\item \keystroke{n} : abaisse la queue du dragon 
+\item \keystroke{n} : abaisse la queue du dragon
+\item \keystroke{a} : active ou désactive l'animation automatique 
 \item \keystroke{q} : quitter l'application 
 \item \UArrow \DArrow \LArrow \RArrow : déplace la caméra en haut, en bas, à droite, à gauche
 \end{itemize}
+
+%------------------------------------------------
+
+\section{Les critiques/Le lore}
+
+Comme tout bon scientifique nous avons soumis notre projet à la critique (critique visuel / avis de proche). La première et plus récurrente a été : "mais c'est une abeille". Après des heures de travail acharné elle a été la plus blessante mais réaliste. Son surnom et sa légende sont d'ailleurs venu de là : "le dragon abeille". La deuxième critique était au niveau de la taille de sa tête trop petite. Ce choix est justifié par sa carrure importante, nous voulions être sur qu'il ne prenne pas la grosse tête ... 
 
 %----------------------------------------------------------------------------------------
 

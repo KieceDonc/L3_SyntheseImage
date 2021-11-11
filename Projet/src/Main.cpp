@@ -31,8 +31,8 @@ int main(int argc,char **argv){
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowPosition(200,200);
-    glutInitWindowSize(500,500);
-    glutCreateWindow("cube");
+    glutInitWindowSize(1000,750);
+    glutCreateWindow("Le dragon abeille");
 
     /* Initialisation d'OpenGL */
     glClearColor(0.0,0.0,0.0,0.0);
@@ -184,6 +184,15 @@ void clavier(unsigned char touche,int x,int y){
                 tailAngleY+=5.0f;
             }
             glutPostRedisplay();
+            break;
+        case 'a': /* enable / disable automatic animation */
+            if(withAnim){
+                withAnim = false;
+                glutIdleFunc(NULL);
+            }else{
+                withAnim = true;
+                glutIdleFunc(anim);
+            }
             break;
         case 'q' : /*la touche 'q' permet de quitter le programme */
             exit(0);
