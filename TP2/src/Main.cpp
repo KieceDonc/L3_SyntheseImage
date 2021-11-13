@@ -26,6 +26,23 @@ void drawHand();
 void drawFinger0();
 void drawFinger1();
 
+void lights(){
+        //coord homogènes : position
+    GLfloat position_source0[] = {5.0, 5.0, 5.0, 1.0};
+    //direction source à distance infinie
+    GLfloat direction_source0[] = {1.0, 2.0, 3.0, 0.0};
+    GLfloat dif_0[] = {1.0, 0.0, 0.0, 1.0};//composante diffuse rouge
+    GLfloat amb_0[] = {1.0, 0.0, 0.0, 1.0}; //composante ambiante rouge
+    GLfloat spec_0[] = {1.0, 1.0, 1.0, 1.0}; //composante spéculaire blanche
+    //spécification des propriétés
+    glLightfv(GL_LIGHT0, GL_POSITION,position_source0);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, amb_0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, dif_0);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, spec_0);
+    //activation de la source GL_LIGHT0
+    glEnable(GL_LIGHT0);
+}
+
 int main(int argc,char **argv){
     scale = 0.25;
 
@@ -50,15 +67,19 @@ int main(int argc,char **argv){
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
     glutMotionFunc(mousemotion);
+    lights();
 
     /* Entree dans la boucle principale glut */
     glutMainLoop();
     return 0;
 }
 
+
 void dessin(){
     int val = 6;
     int i,j;
+
+
     /* effacement de l'image avec la couleur de fond */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glShadeModel(GL_SMOOTH);
@@ -105,12 +126,16 @@ void dessin(){
             drawHand();
             drawFinger0();
             drawFinger1();
+
         glPopMatrix();
+
     glPopMatrix();
 
     //On echange les buffers
     glutSwapBuffers();
 }
+
+
 
 void clavier(unsigned char touche,int x,int y){
     switch (touche){

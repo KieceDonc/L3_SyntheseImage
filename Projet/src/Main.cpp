@@ -4,6 +4,7 @@ bool withAnim,wingReverse;
 char presse;
 float anglex,angley,tailAngleY,wingAngleZ;
 int x,y,xold,yold,zoom;
+int lightOn = 0;
 
 float PI = 3.141592653589793;
 
@@ -63,6 +64,52 @@ int main(int argc,char **argv){
     return 0;
 }
 
+void manageLights(){
+    if(lightOn == 1){
+
+    // Enabling the lighting
+    glEnable(GL_LIGHTING);
+    // Enabling the lighting of every objects
+    glEnable(GL_COLOR_MATERIAL);
+
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+
+    //Positiong of light source
+    GLfloat position_source0[] = {20,-10.0,0.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_POSITION,position_source0);
+
+    // Diffuse light
+    GLfloat diffuseCol0[] = {0.5, 0.2, 0.2, 1.0};
+    glLightfv(GL_LIGHT0, GL_AMBIENT, diffuseCol0);
+
+    // Ambiant light
+    GLfloat ambiantCol0[] = {0.5, 0.2, 0.2, 1.0};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, ambiantCol0);
+
+    // Specular light
+    GLfloat specularCol0[] = {1.0, 1.0, 1.0, 1.0};
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specularCol0);
+
+    GLfloat speculaire[] = {1.0, 1.0, 1.0, 1.0}; // blanc
+
+
+    //Turning this light on
+    glEnable(GL_LIGHT0);
+
+    }
+
+    if(lightOn == 2){
+    glEnable(GL_LIGHTING);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
+    GLfloat couleur[] = {0.8, 0.8, 0.8, 1.0};//composante diffuse rouge
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, couleur);
+    }
+
+    if(lightOn == 0){
+        glDisable(GL_LIGHTING);
+    }
+}
+
 void dessin(){
     int i,j;
     /* effacement de l'image avec la couleur de fond */
@@ -70,9 +117,12 @@ void dessin(){
     glShadeModel(GL_SMOOTH);
 
     glLoadIdentity();
+
+
     glOrtho(-zoom,zoom,-zoom,zoom,-zoom,zoom);
     glRotatef(anglex,0.0f,1.0f,0.0f);
     glRotatef(angley,1.0f,0.0f,0.0f);
+    manageLights();
 
     //Repère
     //axe x en rouge
@@ -96,16 +146,19 @@ void dessin(){
 
     glFlush();
 
+
     headT.enableTexture();
 
-    /* drawing head with her eyes */
+
+
+    /* drawing head (cube) and eyes (box) */
     Cube head = Cube(1.0f,new float[3] {0.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.30f,0.30f,0.30f});
     Box eyesL = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.5f,0.0f,0.30f},true);
     Box eyesR = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.5f,0.0f,0.30f},true);
 
     //bodyT.enableTexture();
 
-    ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3] {head.getDimension()/2,0.0f,0.0f},new float[3] {0.0f,0.0f,-90.0f},new float[3] {0.15f,0.15f,0.15f},true);
+    ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3] {head.getDimension()/2,0.0f,0.0f},new float[3] {0.0f,0.0f,-90.0f},new float[3] {0.75f,0.75f,0.75f},true);
 
     /* drawing wings */
     BezierWing wingR = BezierWing(3.0f,25,false,new float[3] {head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3] {0.0f,0.0f,wingAngleZ+45.0f},new float[3] {0.30f,0.30f,0.30f});
@@ -129,6 +182,9 @@ void dessin(){
     /* drawing tail */
     Cone tail = Cone(1.0f,4.0f,new float[3] {head.getDimension()/2+body.getHauteur(),0.0f,0.0f},new float[3] {-90.0f,tailAngleY+90,0.0f},new float[3] {0.30f,0.30f,0.30f});
 
+    manageLights();
+
+
     //On echange les buffers
     glutSwapBuffers();
 }
@@ -147,6 +203,8 @@ void anim(){
     }
     glutPostRedisplay();
 }
+
+
 
 void clavier(unsigned char touche,int x,int y){
     switch (touche){
@@ -193,6 +251,18 @@ void clavier(unsigned char touche,int x,int y){
                 withAnim = true;
                 glutIdleFunc(anim);
             }
+            break;
+        case '3':
+            lightOn = 3;
+            break;
+        case '2':
+            lightOn = 2;
+            break;
+        case '1':
+            lightOn = 1;
+            break;
+        case '0':
+            lightOn = 0;
             break;
         case 'q' : /*la touche 'q' permet de quitter le programme */
             exit(0);
@@ -260,4 +330,6 @@ void mousemotion(int x,int y){
     xold=x; /* sauvegarde des valeurs courante de le position de la souris */
     yold=y;
 }
+
+
 

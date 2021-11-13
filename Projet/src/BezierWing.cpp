@@ -66,7 +66,7 @@ void BezierWing::draw(){
     float courbeBezier0[4][2] = {{0.0f,0.0f},{2.5f,0.0f},{2.0f,1.0f},{3.0f,2.0f}};
     float courbeBezier1[4][2] = {{3.0f,2.0f},{0.5f,2.25f},{0.0f,2.0f},{0.0f,0.0f}};
 
-    // points have been create with max x and y of 3.0. So we divide every bezier points by 3.0
+    // Points have been created with max x and y of 3.0. So we divide every bezier points by 3.0
     float constToMultiple = this->getScale()/3.0f;
 
     // we multiple every bezier points by the constante
