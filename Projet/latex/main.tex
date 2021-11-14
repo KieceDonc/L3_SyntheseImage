@@ -27,10 +27,12 @@
 %	ASSIGNMENT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title{Synthèse d'image : compte rendu, le dragon abeille} % Title of the assignment
+\title{Synthèse d'image : Compte Rendu de Projet} % Title of the assignment
 \author{Valentin VERSTRACTE \& Evan PETIT}
 
 \date{L3 --- \today} % University, school and/or department name(s) and a date
+
+
 
 %----------------------------------------------------------------------------------------
 
@@ -41,28 +43,53 @@
 %----------------------------------------------------------------------------------------
 %	Table des matières
 %----------------------------------------------------------------------------------------
-
+\bigskip
+\bigskip
 \renewcommand{\contentsname}{Table des matières}
 \tableofcontents
+\newpage
 
 %----------------------------------------------------------------------------------------
-%	PREVIEW
+%	Introduction
 %----------------------------------------------------------------------------------------
+
+\section{Introduction} 
+
+Pour commencer, voici un exemple du dragon fini (sans lumières ou textures) - La caméra ou le clavier permettent de déplacer la caméra autour.
+\bigskip
 
 \begin{figure}[!htb]
 	\centering
     	\includegraphics[height=9cm]{./assets/dragon_abeille.png}
-    	\caption{A CHANGER}
+    	\caption{Dragon ou abeille?}
     	\label{fig:dragon_abeille}
 \end{figure}
+
+\subsection{Fonctionnalités implémentées}
+
+Toutes les fonctionnalités demandées dans le sujet on été implémentées. En particulier : 
+\begin{itemize}
+\item Il s'agit d'une représentation 3D d'un dragon ( à priori )
+\item Une primitive (ici le cylindre) a étée réalisée depuis sa représentation paramétrique.
+\item Deux textures sont utilisées. Une plaquée sur les yeux du dragon, une enroulée autour de son corps.
+\item Deux types de lumières sont gérées. Une lumière ponctuelle rouge, et un projecteur vert.
+\item Il est possible de zoomer à l'aide de 'z', de dézoomer avec 'Z', de diriger la caméra à l'aide des touches directionnelles. \textit{Le reste des touches est décrit dans la section 6. touches disponibles.}
+\item Une animation manuelle qui permet de baisser ( 'n' ) ou lever ( 'h' ) la queue du dragon.
+\item Une animation automatique qui fait battre les ailes du dragon tout au long du déroulement de l'application. 
+\item \textbf{En bonus :} Les ailes du dragon sont modélisées à l'aide de courbes de Bézier. 
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 %	Répertoire
 %----------------------------------------------------------------------------------------
 
-\section{Une conception orienté objet} % Numbered section
+\newpage
 
-Chaque primitive, courbe de bézier et courbe paramétrique sont représenter par des classes. Chacune d'elle est dérivée de la classe objet. Cette classe objet permet de contenir et d'effectuer la translation, la rotation, les couleurs et si "l'objet" est lié à une texture ou non. Pour appliquer tout cela, il suffit d'appeler this->onDraw() qui s'occupe de tout le reste. Ensuite, dans ces classes dérivée, le constructeur initialise les différents attributs. Il appel la fonction draw qui, comme l'indique son nom, dessine. Cette structure aussi efficace que pratique exige cependant des conditions : La méthode draw doit commencer par un glPushMatrix() et this->onDraw() (hérité de objet) et doit finir par un glPopMatrix(). 
+\section{Une conception orientée objet} % Numbered section
+
+Les objets composant le dragon sont de trois types. Primitives connues par GL ( Sphere... ), primitives définiées par leur représentation paramétrique ( ici les cylindres ) ainsi que les ailes du dragon qui sont des solides construits depuis des courbes de Bézier.
+\\~\\
+Afin de faciliter l'écriture et la lecture du code - et profiter d'une fonctionnalité agréable de C++ - ces éléments sont représentés par des classes. Chacune d'elle est dérivée de la classe Object. Cette \textbf{classe Object} permet de contenir la position d'un objet, et d'effectuer la translation, la rotation, définir les couleurs et si "l'objet" est lié à une texture ou non. Pour appliquer tout cela, il suffit d'appeler \textbf{this->onDraw()} qui s'occupe d'afficher l'objet en particulier dans la fonction d'actualisation. Ensuite, dans ces classes dérivée, le constructeur initialise les différents attributs. Il appelle la fonction draw qui, comme l'indique son nom, dessine l'objet en fonction des paramètres (coordonnées, angle, couleurs... ). Cette structure aussi efficace que pratique exige cependant des conditions : La méthode draw doit commencer par un glPushMatrix() et this->onDraw() (hérité de objet) et doit finir par un glPopMatrix(). Ainsi on s'assure que l'objet est indépendant du reste, ce que l'on souhaite.
 
 \begin{figure}[!htb]
 	\begin{minipage}{0.5\textwidth}
@@ -98,14 +125,13 @@ Chaque primitive, courbe de bézier et courbe paramétrique sont représenter pa
     	\label{fig:cylindre_para_1}
 	\end{minipage}
 \end{figure}
+\newpage
+Le cylindre paramétrique est celui vu en cours. Il dépend icide 3 paramètres importants : le rayon, la hauteur et la précision. Le rayon et la hauteur sont plutôt révélateur de ce qu'ils sont. Cependant comme on utilise une équation paramétrique il est nécessaire d'évaluer les points à un instant t. La précision représente justement le nombre d'évaluation que l'on va effectuer. Elle représente aussi le nombre de face que le cylindre va obtenir. Plus la précision est élevée, plus la surface du cylindre est lisse et ronde - au prix d'un temps de calcul un peu plus élevé.\\~\\
 
-Le cylindre paramétrique dépend de 3 paramètres importants : le rayon, la hauteur et la précision. Le rayon et la hauteur sont plutôt révélateur de ce qu'ils sont. Cependant comme on utilise une équation paramétrique il est nécessaire d'évaluer les points à un instant t. La précision représente justement le nombre d'évaluation que l'on va effectuer. Elle représente aussi le nombre de face que le cylindre va obtenir. 
-\newline
-\newline
 Ainsi pour construire ce cylindre plusieurs étapes sont importantes :
 
 \begin{itemize}
-\item On évalue les points autour d'un cercle de rayon donner en paramètre. On obtient pour chaque point une coordonnée (x,z) que l'on stock dans un tableau à l'indice t. Exemple de 30 points figure \ref{fig:cylindre_para_0}
+\item On évalue les points autour d'un cercle de rayon donné en paramètre. On obtient pour chaque point une coordonnée (x,z) que l'on stocke dans un tableau à l'indice t. Exemple de 30 points figure \ref{fig:cylindre_para_0}
 \item On crée des polygones à partir de ces points :
 	\begin{itemize}
 		\item La partie inférieur gauche est égale à x(t),0,z(t)
@@ -114,17 +140,18 @@ Ainsi pour construire ce cylindre plusieurs étapes sont importantes :
 		\item La partie supérieur droite est égale à x(t+1),0,z(t+1)
 	\end{itemize}
 Exemple de polygones avec les 30 points précédent (vision fil de fer) figure \ref{fig:cylindre_para_1}
-\item On ferme la partie inférieur et supérieur en créent 2 polygones en utilisant tout les points contenu dans t. On le fait d'abord pour un premier polygone à la hauteur 0, puis pour le deuxième à la hauteur donnée en paramètre
+\item On ferme la partie inférieure et supérieure en créent 2 polygones en utilisant tout les points contenu dans t. On le fait d'abord pour un premier polygone à la hauteur 0, puis pour le deuxième à la hauteur donnée en paramètre
 \end{itemize}
 
 
-\subsection{Les ailes, deux courbes de bézier}
+\subsection{Les ailes et courbes de béziers}
 
 \subsubsection{La représentation 2D}
 
-Les ailes sont construites à partir de deux courbes de bézier cubiques. Une courbe de bézier cubique est une courbe polynomiale paramétrique à partir de 4 points de contrôle. On rappel l'équation pour évaluer un point d'une courbe de bézier :
-\equabezier
-Où P0, P1, P2, P3 représente les points de contrôle. Ainsi tout comme notre cylindre paramétrique, cette classe aura besoin d'un paramètre précision pour déterminer le nombre de points à évaluer.
+Les ailes sont construites à partir de deux courbes de bézier cubiques - \textit{vu en synthèse d'image au semestre 3}. Une courbe de bézier cubique est une courbe polynomiale paramétrique définies uniquement à partir des coordonées de 4 points de contrôle. On connaît l'équation pour évaluer un point d'une courbe de bézier :\\~\\
+\equabezier \\~\\
+Où P0, P1, P2, P3 représente les points de contrôle. Ainsi tout comme notre cylindre paramétrique, cette classe aura besoin d'un paramètre précision pour déterminer le nombre de points à évaluer, la "\textbf{précision}".
+Pour obtenir les coordonnées adéquates, on modélise déjà sur un logiciel de géométrie dynamique (ici Kig) la forme de l'aile souhaitée.\\
 
 \begin{figure}[!htb]
 	\begin{minipage}{0.5\textwidth}
@@ -141,11 +168,12 @@ Où P0, P1, P2, P3 représente les points de contrôle. Ainsi tout comme notre c
     	\label{fig:2D_bezier}
 	\end{minipage}
 \end{figure}
+\newpage
 
 La figure \ref{fig:kig_bezier} montre la représentation 2D et le choix des différents points de contrôle pour les deux courbes. Pour représenter cette aile avec openGL, on va construire un polygone en 2D où chaque point du polygone appartient à une de nos deux courbes de bézier. On commence par les points de la courbe en bleu puis on finit avec les points de celle en rouge. On commence de (0,0), on monte jusqu'en (-3,2) et on redescend jusqu'en (0,0). On obtient une aile en 2D cf figure \ref{fig:2D_bezier}. 
 \newline
 \newline
-Pour simplifier les dimensions deux opérations supplémentaires sont effectuer au tout début. Les points de contrôle on un maximum de 3 en x et z. On divise d'abord tout les points de contrôle par 3 pour que la taille maximum de l'aile soit de 1 en x et z. Ensuite, on ne souhaite pas forcément que les ailes soit aussi petite. On rajoute un paramètre dimension dans notre classe et on multiplie tout nos points de contrôle par ce paramètre. Ainsi la taille maximum en x et z serra la valeur de "dimension".
+Pour simplifier les dimensions, deux opérations supplémentaires sont effectuer au tout début. Les points de contrôle ont un maximum de 3 en x et z. On divise d'abord tous les points de contrôle par 3 pour que la taille maximum de l'aile soit de 1 en x et z. Ensuite, on ne souhaite pas forcément que les ailes soient aussi petites. On rajoute un paramètre dimension dans notre classe et on multiplie les coordonnées de tous nos points de contrôle par ce paramètre. Ainsi la taille maximum en x et z serra la valeur de "dimension".
 
 \subsubsection{La représentation 3D}
 
@@ -170,10 +198,10 @@ Pour simplifier les dimensions deux opérations supplémentaires sont effectuer 
     	\label{fig:3D_2_bezier}
 	\end{minipage}
 \end{figure}
-En gris, la même aile et "premier polygone" que la figure \ref{fig:2D_bezier}. En blanc "deuxième polygone". En bleu "troisième polygone". En jaune "quatrième polygone"
+En gris, la même aile et "première surface" que la figure \ref{fig:2D_bezier}. En blanc "deuxième surface". En bleu "troisième surface". En jaune "quatrième surface"
 \newline
 \newline
-La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux ailes 2D de hauteur 0 et une deuxième de hauteur de 0.4 dans le plus grand des cas. La deuxième est légèrement "penché". Sa hauteur vers la courbe bleue (cf figure \ref{fig:kig_bezier}) commence vers 1/3 de la hauteur max tandis que vers la courbe rouge, elle est de 0.4 (hauteur max). Le troisième est constituer des points de la courbe bleu de la figure \ref{fig:kig_bezier} en bleue qui commence à la hauteur de la première aile 2D jusqu'à la hauteur de la deuxième aile 2D. La quatrième est équivalente hormis qu'on l'applique pour la courbe rouge de figure \ref{fig:kig_bezier}.
+La représentation 3D est constituer de 4 surfaces. Les deux premiers sont deux ailes 2D de hauteur 0 et une deuxième de hauteur de 0.4 dans le plus grand des cas. La deuxième est légèrement "penchée". Sa hauteur vers la courbe bleue (cf figure \ref{fig:kig_bezier}) commence vers 1/3 de la hauteur max tandis que vers la courbe rouge, elle est de 0.4 (hauteur max). La troisième est constituée des points de la courbe bleue de la figure \ref{fig:kig_bezier} en bleu qui commence à la hauteur de la première aile 2D jusqu'à la hauteur de la deuxième aile 2D. La quatrième est équivalente hormis qu'on l'applique pour la courbe rouge de la figure \ref{fig:kig_bezier}.
 
 \subsubsection{Le problème de symétrie}
 
@@ -199,11 +227,11 @@ La représentation 3D est constituer de 4 polygones. Les deux premiers sont deux
 	\end{minipage}
 \end{figure}
 
-Un problème inattendu pour essayer de créer des ailes comme dans la figure \ref{fig:3D_symetrie_2_bezier} (résultat final) a été tout d'abord celui de la figure \ref{fig:3D_symetrie_0_bezier}. Une rotation a été naïvement tenté pour résoudre le problème cf figure 9 mais le résultat n'est toujours pas bon (notamment à cause de la hauteur de 1/3 (cf figure \ref{fig:3D_1_bezier} le bleu) "en dessous au lieu de haut dessus"). Pour obtenir la figure \ref{fig:3D_symetrie_2_bezier} et résoudre le problème il a été décidé de jouer avec les coordonnées des points de contrôle. Il suffit de prendre l'opposé en z pour obtenir une deuxième aile symétrique. Ainsi un booléen symetricall a été rajouté à notre classe pour préciser si on souhaite prendre des points de coordonnées avec l'opposé en z. 
+Un problème inattendu pour essayer de créer des ailes comme dans la figure \ref{fig:3D_symetrie_2_bezier} (résultat final) a été tout d'abord celui de la figure \ref{fig:3D_symetrie_0_bezier}. Une rotation a été naïvement tenté pour résoudre le problème cf figure 9 mais le résultat n'est toujours pas bon (notamment à cause de la hauteur de 1/3 (cf figure \ref{fig:3D_1_bezier} le bleu) "en dessous au lieu de haut dessus"). Pour obtenir la figure \ref{fig:3D_symetrie_2_bezier} et résoudre le problème il a été décidé de jouer avec les coordonnées des points de contrôle. Il suffit de prendre l'opposé en z pour obtenir une deuxième aile symétrique. Ainsi un booléen \textbf{symetrical} a été rajouté à notre classe pour préciser si on souhaite prendre des points de coordonnées avec l'opposé en z. 
 
 \subsection{La box}
 	
-La box est un parallélépipède rectangle composé d'une longueur, largeur et hauteur comme décrit figure \ref{fig:box}. On recevra ainsi ces 3 composantes en paramètre de notre classe. L'objet est centré en (0,0,0). Sa construction est simple. Pour une face on envoie dans une fonction les quatre coordonnées d'une face d'un cube (coordonnées tel que la figure \ref{fig:box_construction}). On multiple ensuite respectivement les coordonnées x, y et z par la moitié de : la longeur, largeur et hauteur. On crée à partir de ces points un polygone qui nous donne une face de notre box. On répète l'opération pour toutes les faces et on obtient notre box centrée en (0,0,0).
+La box est un parallélépipède rectangle composé d'une longueur, largeur et hauteur comme décrit figure \ref{fig:box}. On recevra ainsi ces 3 composantes en paramètre de notre constructeur d'objet. L'objet est centré en (0,0,0). Sa construction est simple. Pour une face on envoie dans une fonction les quatre coordonnées d'une face d'un cube (voir coordonnées de la figure \ref{fig:box_construction}). On multiple ensuite respectivement les coordonnées x, y et z par la moitié de : la longeur, largeur et hauteur. On crée à partir de ces points un polygone qui nous donne une face de notre box. On répète l'opération pour toutes les faces et on obtient notre box centrée en (0,0,0).
 
 
 \begin{figure}[!htb]
@@ -224,13 +252,13 @@ La box est un parallélépipède rectangle composé d'une longueur, largeur et h
 
 \subsection{Les primitives}
 
-Il n'y a pas grand à chose à dire sur les primitives utiliser. Elles sont juste entouré de cette conception objet ce qui, aurait très bien pu ce faire sans. Il a tout de même été choisit de les moulés dans cette conception pour garder le code propre et lisible. 
+Il n'y a pas grand à chose à dire sur les primitives utilisées. Pour que le code soit cohérent, il a été décidé d'encapsuler ces primitives dans des classes C++, afin que la syntaxe de la construction d'un objet (bras, tête, oeil, etc...) soit la même peu importe cet objet, que ce soit une primitive de GL, un cylindre paramétrique, une aile représentées par des courbes de bézier, une box.
 \newline
 \newline
-Les primitives utilisés sont : 
+Les primitives natives à GL utilisées sont : 
 \begin{itemize}
 	\item Le cone
-	\item Le cube ( que l'on aurait pu se passer en donnant une longeur / largeur / hauteur de 1 à la box )
+	\item Le cube ( dont on aurait pu se passer en donnant une longeur / largeur / hauteur de 1 à la box )
 	\item La sphère
 \end{itemize}
 
@@ -238,15 +266,48 @@ Les primitives utilisés sont :
 
 \section{Les textures}
 
-Une texture est représenté par une classe. Son constructeur prend en paramètre un string qui s'occupe de charger en mémoire la texture. Ensuite, pour décrire qu'il faut utiliser cette texture il suffit d'appeler enableTexture() sur l'objet instancié. Cette fonction appelle simplement glTextImage2D() de glut avec les paramètres nécessaire.  
+Une texture est représentée par une classe dans notre conception. Son constructeur prend en paramètre un string qui s'occupe de charger en mémoire la texture depuis son chemin dans la machine. Ensuite, pour décrire qu'il faut utiliser cette texture il suffit d'appeler enableTexture() sur l'objet instancié. Cette fonction appelle simplement glTextImage2D() de glut avec les paramètres nécessaire.  
 \newline
 \newline
-Comme chaque classe hérite de objet, elle peut utiliser la fonction isWithTexture() pour savoir si elle a besoin de traduire des coordonnées en "coordonnées de texture". Chaque classe gère localement cette traduction.
+Comme chaque classe hérite de objet, elle peut utiliser la fonction isWithTexture() pour savoir si elle a besoin de traduire des coordonnées en "coordonnées de texture" (texels). Chaque classe gère localement cette traduction.
 
 
 %------------------------------------------------
-
+\newpage
 \section{Les lumières}
+
+Les lumières sont une partie assez succincte de l'application. Elles ne nécessitent pas l'encapsulation dans une classe, juste d'une fonction dans la classe principale qui est appelée à chaque rafraîchissement. \\~\\
+Dans le code, le nom de cette fonction est \textbf{manageLights} et prend en paramètre un entier. Ici, en particulier, il s'agira soit de 0, 1 ou 2. L'appel de la fonction permet d'afficher en fonction du paramètre et d'une condition if sur l'entier : 0 pour aucune lumière (à part celles par défaut), 1 pour une lumière ponctuelle rouge située derrière et en dessous du dragon, 2 pour un projecteur vert lumineux situé au même endroit.\\~\\
+
+Dans les deux cas, on utilise le modèle du cours :\\Définir un vecteur position (homogène) qui contient les coordonnées de la source de lumière. Ensuite, trois autres vecteurs qui permettent de définir les composantes diffuses, ambiantes et spéculaires des lumières. De cette manière, on peut changer les propriétés des lumières à l'aide de la fonction \textbf{glLightfv}
+
+
+\subsection{Lumière ponctuelle}
+
+\begin{figure}[!htb]
+	\centering
+    	\includegraphics[height=5cm]{./assets/lumiere_ponctuelle.jpg}
+    	\caption{Lumière ponctuelle (venant de derrière/dessous le dragon)}
+    	\label{fig:lumiere_ponctuelle}
+\end{figure}
+
+La lumière ponctuelle correspond à \textbf{GL LIGHT0.}\\
+Elle est définie par des composantes diffuse et ambiante légèrement rouges ( 0.5 0.2 0.2 ), ainsi que spéculaire blanche. Puisqu'il s'agit du type de lumière le plus classique, il n'y a pas grand chose d'autre à faire : Les rayons lumineux partent uniformément dans toutes les directions autour de la source.
+
+\subsection{Projecteur}
+
+\begin{figure}[!htb]
+	\centering
+    	\includegraphics[height=5cm]{./assets/projecteur.jpg}
+    	\caption{Projecteur (venant du même endroit que la figure précédente)}
+    	\label{fig:projecteur}
+\end{figure}
+\newpage
+Le projecteur correspond à \textbf{GL LIGHT1.}
+Il est défini par des composantes similaires à la lumière précédente, mais ici il s'agit de vert un peu plus lumineux ( 0.2 0.8 0.2 ).
+Un projecteur est défini par trois propriétés supplémentaires : \textbf{CUTOFF} l'angle d'ouverture, \textbf{EXPONENT} le coefficient qui définit la perte d'intensité lumineuse aux bords du cone du projecteur, ainsi que \textbf{DIRECTION} le vecteur direction de la lumière.\\
+
+Dans ce projet, l'angle est petit (15°) : On peut voir sur la figure qu'une grande partie de la queue du dragon et de ses ailes ne sont pas comprises dedans. La direction est (-2,1,0) - C'est à dire directement dirigé vers la tête du dragon qui est au centre de la scène (puisque la position du projecteur est 20,-10,0)
 
 %------------------------------------------------
 
@@ -254,13 +315,13 @@ Comme chaque classe hérite de objet, elle peut utiliser la fonction isWithTextu
 
 \subsection{Une animation automatique}
 
-L'animation automatique se porte les ailes du dragon. On incrémente un angle de + ou - 25 ° se qui donne au dragon l'impression de voler. La logique algorithmique est plutôt simple. On incrémente un tout petit l'angle dans la fonction anim ( appeler par glut chaque fois qu'il ne fait rien ). Si l'angle est supérieur à 25 on décremente. Si l'angle est inférieur à -25 on incrémente. 
+L'animation automatique se porte sur les ailes du dragon. On incrémente un angle de + ou - 25 ° ce qui donne au dragon l'impression de voler en battant des ailes. La logique algorithmique est plutôt simple. On incrémente un tout petit l'angle dans la fonction anim ( appelée par glut chaque fois qu'il ne fait rien ). Si l'angle est supérieur à 25 on décremente. Si l'angle est inférieur à -25 on incrémente. 
 \newline
 \newline
-L'animation étant très demandeuse de ressources, il est possible de la désactiver / activer avec la touche A.
+L'animation étant très demandeuse en ressources, il est possible de la désactiver / activer avec la touche A.
 \subsection{Une animation manuelle}
 
-L'animation n'est pas très impressionnante. En peut juste baisser ou lever la queue en fonction des touches h et n
+Cette animation permet de baisser ou lever la queue du dragon en fonction des appuis sur les touches h et n. Elle fonctionne comme pour l'animation précédente : On incrémente ou décrémente d'un petit angle l'angle de l'objet \textbf{queue}.
 
 %------------------------------------------------
 
@@ -269,21 +330,18 @@ L'animation n'est pas très impressionnante. En peut juste baisser ou lever la q
 \begin{itemize}
 \item \keystroke{p} : affichage du carré plein
 \item \keystroke{f} : affichage du mode de fil de fer
-\item \keystroke{s} : affichage en mode de sommets seuls
+\item \keystroke{s} : affichage en mode sommets seuls
 \item \keystroke{z} : permet de zoomer
 \item \keystroke{Z} : permet de dézoomer 
 \item \keystroke{h} : élève la queue du dragon
 \item \keystroke{n} : abaisse la queue du dragon
 \item \keystroke{a} : active ou désactive l'animation automatique 
+\item \keystroke{0} : désactive toutes les lumières 
+\item \keystroke{1} : active \textbf{GL LIGHT0} qui correspond à la lumière ponctuelle
+\item \keystroke{2} : active \textbf{GL LIGHT1} qui correspond au projecteur
 \item \keystroke{q} : quitter l'application 
 \item \UArrow \DArrow \LArrow \RArrow : déplace la caméra en haut, en bas, à droite, à gauche
 \end{itemize}
-
-%------------------------------------------------
-
-\section{Les critiques/Le lore}
-
-Comme tout bon scientifique nous avons soumis notre projet à la critique (critique visuel / avis de proche). La première et plus récurrente a été : "mais c'est une abeille". Après des heures de travail acharné elle a été la plus blessante mais réaliste. Son surnom et sa légende sont d'ailleurs venu de là : "le dragon abeille". La deuxième critique était au niveau de la taille de sa tête trop petite. Ce choix est justifié par sa carrure importante, nous voulions être sur qu'il ne prenne pas la grosse tête ... 
 
 %----------------------------------------------------------------------------------------
 
