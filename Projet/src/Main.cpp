@@ -19,8 +19,8 @@ void mouse(int bouton,int etat,int x,int y);
 void mousemotion(int x,int y);
 void dessin();
 
-Texture headT = Texture("./assets/head.jpg");
-Texture bodyT = Texture("./assets/texturebody.jpg");
+Texture headT = Texture("./assets/eyes.jpg");
+Texture bodyT = Texture("./assets/body.jpg");
 
 int main(int argc,char **argv){
     withAnim = true;
@@ -49,9 +49,7 @@ int main(int argc,char **argv){
 
 
     /* enregistrement des fonctions de rappel */
-    if(withAnim){
-        glutIdleFunc(anim);
-    }
+    glutIdleFunc(anim);
     glutDisplayFunc(dessin);
     glutKeyboardFunc(clavier);
     glutSpecialFunc(clavierSpecial);
@@ -146,17 +144,14 @@ void dessin(){
 
     glFlush();
 
-
     headT.enableTexture();
-
-
 
     /* drawing head (cube) and eyes (box) */
     Cube head = Cube(1.0f,new float[3] {0.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.30f,0.30f,0.30f});
-    Box eyesL = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.5f,0.0f,0.30f},true);
-    Box eyesR = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.5f,0.0f,0.30f},true);
+    Box eyesL = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {1.0f,1.0f,1.0f},true);
+    Box eyesR = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {1.0f,1.0f,1.0f},true);
 
-    //bodyT.enableTexture();
+    bodyT.enableTexture();
 
     ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3] {head.getDimension()/2,0.0f,0.0f},new float[3] {0.0f,0.0f,-90.0f},new float[3] {0.75f,0.75f,0.75f},true);
 

@@ -59,6 +59,7 @@ float BezierWing::getHauteur(){
  *
  */
 void BezierWing::draw(){
+    bool customColors = false;
     glPushMatrix();
     this->onDraw();
 
@@ -97,7 +98,9 @@ void BezierWing::draw(){
         points1Bezier[t][1] = courbeBezier1[0][1]*std::pow((1-currentT),3)+3*courbeBezier1[1][1]*currentT*std::pow((1-currentT),2)+3*courbeBezier1[2][1]*std::pow(currentT,2)*(1-currentT)+courbeBezier1[3][1]*std::pow(currentT,3);
     }
 
-    glColor3f(0.5f,0.5f,0.5f);
+    if(customColors){
+        glColor3f(0.5f,0.5f,0.5f);
+    }
 
     // drawing inferior part
     glBegin(GL_POLYGON);
@@ -110,7 +113,9 @@ void BezierWing::draw(){
         }
     glEnd();
 
-    glColor3f(1.0f,1.0f,1.0f);
+    if(customColors){
+        glColor3f(1.0f,1.0f,1.0f);
+    }
 
     // drawing upper part
     glBegin(GL_POLYGON);
@@ -122,9 +127,9 @@ void BezierWing::draw(){
         }
     glEnd();
 
-
-    glColor3f(1.0f,1.0f,0.0f);
-
+    if(customColors){
+        glColor3f(1.0f,1.0f,0.0f);
+    }
     // drawing of the side of the second curve
     for(int t = 0;t<this->getPrecision();t++){
         glBegin(GL_POLYGON);
@@ -135,8 +140,9 @@ void BezierWing::draw(){
         glEnd();
     }
 
-    glColor3f(0.0f,1.0f,1.0f);
-
+    if(customColors){
+        glColor3f(0.0f,1.0f,1.0f);
+    }
     // drawing of the side of the first curve
     for(int t = 0;t<this->getPrecision();t++){
         glBegin(GL_POLYGON);
