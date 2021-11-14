@@ -39,6 +39,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add library="GL" />
+			<Add library="GLU" />
+			<Add library="glut" />
+		</Linker>
 		<Unit filename="include/BezierWing.h" />
 		<Unit filename="include/Box.h" />
 		<Unit filename="include/Cone.h" />

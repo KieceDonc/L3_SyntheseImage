@@ -67,13 +67,13 @@ void manageLights(){
 
     // Enabling the lighting
     glEnable(GL_LIGHTING);
+    glDisable(GL_LIGHT1);
     // Enabling the lighting of every objects
     glEnable(GL_COLOR_MATERIAL);
-
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
 
-    //Positiong of light source
-    GLfloat position_source0[] = {20,-10.0,0.0, 1.0};
+    //Position of light the source
+    GLfloat position_source0[] = {20.0,-10.0,0.0, 1.0};
     glLightfv(GL_LIGHT0, GL_POSITION,position_source0);
 
     // Diffuse light
@@ -88,19 +88,43 @@ void manageLights(){
     GLfloat specularCol0[] = {1.0, 1.0, 1.0, 1.0};
     glLightfv(GL_LIGHT0, GL_SPECULAR, specularCol0);
 
-    GLfloat speculaire[] = {1.0, 1.0, 1.0, 1.0}; // blanc
-
-
     //Turning this light on
     glEnable(GL_LIGHT0);
-
     }
 
     if(lightOn == 2){
+    // Enabling the lighting
     glEnable(GL_LIGHTING);
-    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
-    GLfloat couleur[] = {0.8, 0.8, 0.8, 1.0};//composante diffuse rouge
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, couleur);
+    glDisable(GL_LIGHT0);
+    // Enabling the lighting of every objects
+    glEnable(GL_COLOR_MATERIAL);
+    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+
+    //Position of light the source
+    GLfloat position_source0[] = {20.0,-10.0,0.0, 1.0};
+    glLightfv(GL_LIGHT1, GL_POSITION,position_source0);
+
+    // Diffuse light
+    GLfloat diffuseCol0[] = {0.2, 0.8, 0.2, 1.0};
+    glLightfv(GL_LIGHT1, GL_AMBIENT, diffuseCol0);
+
+    // Ambiant light
+    GLfloat ambiantCol0[] = {0.2, 0.8, 0.2, 1.0};
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, ambiantCol0);
+
+    // Specular light
+    GLfloat specularCol0[] = {1.0, 1.0, 1.0, 1.0};
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specularCol0);
+
+    // Spotlight settings
+    glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 15.0);
+    glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 4.0);
+    GLfloat dir[] = {-2,1,0};
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
+
+    //Turning this light on
+    glEnable(GL_LIGHT1);
+
     }
 
     if(lightOn == 0){
@@ -110,7 +134,7 @@ void manageLights(){
 
 void dessin(){
     int i,j;
-    /* effacement de l'image avec la couleur de fond */
+    /* Erasing background with background colour */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glShadeModel(GL_SMOOTH);
 
@@ -122,20 +146,20 @@ void dessin(){
     glRotatef(angley,1.0f,0.0f,0.0f);
     manageLights();
 
-    //Repère
-    //axe x en rouge
+    // Space
+    // Red X axis
     glBegin(GL_LINES);
     glColor3f(1.0,0.0,0.0);
     glVertex3f(0,0,0.0);
     glVertex3f(10,0,0.0);
     glEnd();
-    //axe des y en vert
+    // Green Y axis
     glBegin(GL_LINES);
     glColor3f(0.0,1.0,0.0);
     glVertex3f(0,0,0.0);
     glVertex3f(0,10,0.0);
     glEnd();
-    //axe des z en bleu
+    // Blue Z axis
     glBegin(GL_LINES);
     glColor3f(0.0,0.0,1.0);
     glVertex3f(0,0,0.0);
@@ -146,7 +170,7 @@ void dessin(){
 
     headT.enableTexture();
 
-    /* drawing head (cube) and eyes (box) */
+    /* Drawing head (cube) and eyes (box) */
     Cube head = Cube(1.0f,new float[3] {0.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,0.0f},new float[3] {0.30f,0.30f,0.30f});
     Box eyesL = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6,-head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {1.0f,1.0f,1.0f},true);
     Box eyesR = Box(0.2f,0.2f,0.4f,new float[3] {-head.getDimension()/2,head.getDimension()/6, head.getDimension()/4},new float[3] {0.0f,0.0f,0.0f},new float[3] {1.0f,1.0f,1.0f},true);
@@ -155,32 +179,32 @@ void dessin(){
 
     ParametricCylinder body = ParametricCylinder(1.0f,8.0f,30,new float[3] {head.getDimension()/2,0.0f,0.0f},new float[3] {0.0f,0.0f,-90.0f},new float[3] {0.75f,0.75f,0.75f},true);
 
-    /* drawing wings */
+    /* Drawing wings */
     BezierWing wingR = BezierWing(3.0f,25,false,new float[3] {head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3] {0.0f,0.0f,wingAngleZ+45.0f},new float[3] {0.30f,0.30f,0.30f});
     BezierWing wingL = BezierWing(3.0f,25,true,new float[3] {head.getDimension()/2+1.0f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3] {0.0f,0.0f,wingAngleZ+45.0f},new float[3] {0.30f,0.30f,0.30f});
     BezierWing backwingR = BezierWing(5.0f,25,false,new float[3] {head.getDimension()/2+body.getHauteur()*0.5f,-BezierWing::getHauteur()/2,body.getRayon()},new float[3] {0.0f,0.0f,wingAngleZ+45.0f},new float[3] {0.30f,0.30f,0.30f});
     BezierWing backwingL = BezierWing(5.0f,25,true,new float[3] {head.getDimension()/2+body.getHauteur()*0.5f,-BezierWing::getHauteur()/2,-body.getRayon()},new float[3] {0.0f,0.0f,wingAngleZ+45.0f},new float[3] {0.30f,0.30f,0.30f});
 
-    /* drawing legs */
+    /* Drawing legs */
     ParametricCylinder frontLegL = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3] {-90.0f-75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
     ParametricCylinder frontLegR = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.25,-sin(PI/4)*body.getRayon(),cos(PI/4)*body.getRayon()},new float[3] {90.0f+75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
     ParametricCylinder backLegL = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.75,-sin(PI/4)*body.getRayon(),-cos(PI/4)*body.getRayon()},new float[3] {-90.0f-75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
     ParametricCylinder backLegR = ParametricCylinder(0.45f,2.0f,30,new float[3] {head.getDimension()/2+body.getHauteur()*0.75,-sin(PI/4)*body.getRayon(),cos(PI/4)*body.getRayon()},new float[3] {90.0f+75.0f,0.0f,0.0f},new float[3] {0.0f,0.0f,1.0f},false);
 
-    /* drawing legs feet */
+    /* Drawing legs and feet */
     float feetRayon = 0.65f;
     Sphere frontfeetR = Sphere(feetRayon,new float[3] {frontLegR.getTranslate(0),frontLegR.getTranslate(1)-frontLegR.getHauteur(),frontLegR.getTranslate(2)+feetRayon/1.5},new float[3] {1.0f,0.0f,0.0f});
     Sphere frontfeetL = Sphere(feetRayon,new float[3] {frontLegL.getTranslate(0),frontLegL.getTranslate(1)-frontLegL.getHauteur(),frontLegL.getTranslate(2)-feetRayon/1.5},new float[3] {1.0f,0.0f,0.0f});
     Sphere backfeetR = Sphere(feetRayon,new float[3] {backLegR.getTranslate(0),backLegR.getTranslate(1)-backLegR.getHauteur(),backLegR.getTranslate(2)+feetRayon/1.5},new float[3] {1.0f,0.0f,0.0f});
     Sphere backfeetL = Sphere(feetRayon,new float[3] {backLegL.getTranslate(0),backLegL.getTranslate(1)-backLegL.getHauteur(),backLegL.getTranslate(2)-feetRayon/1.5},new float[3] {1.0f,0.0f,0.0f});
 
-    /* drawing tail */
+    /* Drawing tail */
     Cone tail = Cone(1.0f,4.0f,new float[3] {head.getDimension()/2+body.getHauteur(),0.0f,0.0f},new float[3] {-90.0f,tailAngleY+90,0.0f},new float[3] {0.30f,0.30f,0.30f});
 
     manageLights();
 
 
-    //On echange les buffers
+    // Swapping buffers
     glutSwapBuffers();
 }
 
@@ -203,15 +227,15 @@ void anim(){
 
 void clavier(unsigned char touche,int x,int y){
     switch (touche){
-        case 'p': /* affichage du carre plein */
+        case 'p': /* Default view */
             glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
             glutPostRedisplay();
             break;
-        case 'f': /* affichage en mode fil de fer */
+        case 'f': /* Wire view */
             glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
             glutPostRedisplay();
             break;
-        case 's' : /* Affichage en mode sommets seuls */
+        case 's' : /* Vertex view */
             glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
             glutPostRedisplay();
             break;
@@ -226,13 +250,13 @@ void clavier(unsigned char touche,int x,int y){
             zoom+=1;
             glutPostRedisplay();
             break;
-        case 'h': /* raise the tail */
+        case 'h': /* Raise the tail */
             if(tailAngleY>-50){
                 tailAngleY-=5.0f;
             }
             glutPostRedisplay();
             break;
-        case 'n': /* lower the tail */
+        case 'n': /* Lower the tail */
             if(tailAngleY<50){
                 tailAngleY+=5.0f;
             }
@@ -247,25 +271,23 @@ void clavier(unsigned char touche,int x,int y){
                 glutIdleFunc(anim);
             }
             break;
-        case '3':
-            lightOn = 3;
-            break;
-        case '2':
+
+        case '2': /* Green spotlight */
             lightOn = 2;
             break;
-        case '1':
+        case '1': /* Red ponctual lightsource */
             lightOn = 1;
             break;
-        case '0':
+        case '0': /* Default light */
             lightOn = 0;
             break;
-        case 'q' : /*la touche 'q' permet de quitter le programme */
+        case 'q' : /*Exit the program */
             exit(0);
     }
 }
 
 void clavierSpecial(int touche,int x,int y){
-    /* Handle camera mouvement with keyboard */
+    /* Handles camera mouvement with keyboard */
     switch(touche){
         case GLUT_KEY_LEFT:{
             anglex+=10;
@@ -299,30 +321,28 @@ void reshape(int x,int y){
 }
 
 void mouse(int button, int state,int x,int y){
-    /* si on appuie sur le bouton gauche */
+    /* Left mouse button press */
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-        presse = 1; /* le booleen presse passe a 1 (vrai) */
-        xold = x; /* on sauvegarde la position de la souris */
+        presse = 1; /* boolean as true */
+        xold = x; /* store mouse y and x position */
         yold=y;
     }
-    /* si on relache le bouton gauche */
+    /* Left mouse button release */
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP){
-        presse=0; /* le booleen presse passe a 0 (faux) */
+        presse=0; /* boolean as false */
     }
 }
 
 void mousemotion(int x,int y){
     if (presse){
-        /* si le bouton gauche est presse */
-        /* on modifie les angles de rotation de l'objet
-        en fonction de la position actuelle de la souris et de la derniere
-        position sauvegardee */
+        /* If left mouse button pressed, we edit the rotation angles of object depending of the
+        mouse position and the last stored position. */
         anglex=anglex+(x-xold);
         angley=angley+(y-yold);
-        glutPostRedisplay(); /* on demande un rafraichissement de l'affichage */
+        glutPostRedisplay(); /* Redraw */
     }
 
-    xold=x; /* sauvegarde des valeurs courante de le position de la souris */
+    xold=x; /* Store mouse y and x position */
     yold=y;
 }
 
